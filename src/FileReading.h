@@ -1,8 +1,12 @@
-<<<<<<< HEAD
-class FileReading {
-=======
-class fileReading {
->>>>>>> branch 'master' of https://github.com/up201504988/CAL-URGENCIAS.git
-public:
+#ifndef _FILE_READING_H_
+#define _FILE_READING_H_
+#include <string>
 
+template <class T>
+class FileReading {
+public:
+	bool readNodesInfo(Graph<T> graph, string fileName);
+	bool readRoadsInfo(Graph<T> graph, string fileInfo, string fileGeometry);
 };
+
+#endif
