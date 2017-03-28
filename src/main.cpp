@@ -17,7 +17,9 @@ int main () {
 
 	gv->addNode(0);
 	gv->addNode(1);
-	gv->addEdge(0, 0, 1, EdgeType::UNDIRECTED);
+	gv->addNode(2);
+	gv->addEdge(0, 0, 1, EdgeType::DIRECTED);
+	gv->addEdge(1, 0, 2, EdgeType::DIRECTED);
 
 	getchar();
 	return 0;
