@@ -36,3 +36,4 @@
 .settings/
 cmake-build-debug/
 CMakeLists.txt
+/Debug/
