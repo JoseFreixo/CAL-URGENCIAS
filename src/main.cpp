@@ -3,8 +3,12 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include "FileReading.h"
 
 int main () {
+
+
+
 	GraphViewer *gv = new GraphViewer(600, 600, true);
 
 	gv->setBackground("background.jpg");
@@ -20,6 +24,8 @@ int main () {
 	gv->addNode(2);
 	gv->addEdge(0, 0, 1, EdgeType::DIRECTED);
 	gv->addEdge(1, 0, 2, EdgeType::DIRECTED);
+
+	FileReading<int>().readNodesInfo(Graph<int>(), "cdffr");
 
 	getchar();
 	return 0;
