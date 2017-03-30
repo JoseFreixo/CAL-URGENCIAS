@@ -12,6 +12,7 @@ public:
 	bool readRoadsInfo(Graph<T> graph, string fileInfo, string fileGeometry);
 };
 
+
 template <class T>
 bool FileReading<T>::readNodesInfo(Graph<T> graph, string fileName){
 	return true;

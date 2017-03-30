@@ -8,7 +8,6 @@
 int main () {
 
 
-
 	GraphViewer *gv = new GraphViewer(600, 600, true);
 
 	gv->setBackground("background.jpg");
