@@ -8,8 +8,8 @@ using namespace std;
 template <class T>
 class FileReading {
 public:
-	bool readNodesInfo(Graph<T> graph, string fileName);
-	bool readRoadsInfo(Graph<T> graph, string fileInfo, string fileGeometry);
+	static bool readNodesInfo(Graph<T> graph, string fileName);
+	static bool readRoadsInfo(Graph<T> graph, string fileInfo, string fileGeometry);
 };
 
 
