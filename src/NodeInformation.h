@@ -15,6 +15,7 @@ public:
 	long double getLatitude();
 	long double getLongitude();
 	unsigned int getId();
+	bool operator==(NodeInformation & nInfo) const;
 };
 
 NodeInformation::NodeInformation(unsigned int id, long double latitude, long double longitude){
@@ -33,6 +34,12 @@ long double NodeInformation::getLongitude(){
 
 unsigned int NodeInformation::getId(){
 	return id;
+}
+
+bool NodeInformation::operator==(NodeInformation & nInfo) const {
+	if (this->id == nInfo.getId())
+		return true;
+	return false;
 }
 
 #endif

@@ -93,7 +93,7 @@ bool GraphViewer::closeWindow() {
 	return con->sendMsg(str);
 }
 
-bool GraphViewer::addNode(int id) {
+bool GraphViewer::addNode(unsigned long long id) {
 	if(!isDynamic) {
 		cerr << "This graph is not dynamic,"
 				"so you must use GraphViewer::addNode(int id, int x, int y) instead.\n"
@@ -109,7 +109,7 @@ bool GraphViewer::addNode(int id) {
 	return con->sendMsg(str);
 }
 
-bool GraphViewer::addNode(int id, int x, int y) {
+bool GraphViewer::addNode(unsigned long long id, int x, int y) {
 	if(isDynamic) {
 		cerr << "This graph is dynamic, "
 				"so the provided x and y values for the node with id "
@@ -122,21 +122,21 @@ bool GraphViewer::addNode(int id, int x, int y) {
 	return con->sendMsg(str);
 }
 
-bool GraphViewer::addEdge(int id, int v1, int v2, int edgeType) {
+bool GraphViewer::addEdge(unsigned long long id, unsigned long long v1, unsigned long long v2, int edgeType) {
 	char buff[200];
 	sprintf(buff, "addEdge %d %d %d %d\n", id, v1, v2, edgeType);
 	string str(buff);
 	return con->sendMsg(str);
 }
 
-bool GraphViewer::setEdgeLabel(int k, string label) {
+bool GraphViewer::setEdgeLabel(unsigned long long k, string label) {
 	char buff[200];
 	sprintf(buff, "setEdgeLabel %d %s\n", k, label.c_str());
 	string str(buff);
 	return con->sendMsg(str);
 }
 
-bool GraphViewer::setVertexLabel(int k, string label) {
+bool GraphViewer::setVertexLabel(unsigned long long k, string label) {
 	char buff[200];
 	sprintf(buff, "setVertexLabel %d %s\n", k, label.c_str());
 	string str(buff);
@@ -150,21 +150,21 @@ bool GraphViewer::defineEdgeColor(string color) {
 	return con->sendMsg(str);
 }
 
-bool GraphViewer::removeNode(int id) {
+bool GraphViewer::removeNode(unsigned long long id) {
 	char buff[200];
 	sprintf(buff, "removeNode %d\n", id);
 	string str(buff);
 	return con->sendMsg(str);
 }
 
-bool GraphViewer::removeEdge(int id) {
+bool GraphViewer::removeEdge(unsigned long long id) {
 	char buff[200];
 	sprintf(buff, "removeEdge %d\n", id);
 	string str(buff);
 	return con->sendMsg(str);
 }
 
-bool GraphViewer::setEdgeColor(int k, string color) {
+bool GraphViewer::setEdgeColor(unsigned long long k, string color) {
 	char buff[200];
 	sprintf(buff, "setEdgeColor %d %s\n", k, color.c_str());
 	string str(buff);
@@ -178,7 +178,7 @@ bool GraphViewer::defineEdgeDashed(bool dashed) {
 	return con->sendMsg(str);
 }
 
-bool GraphViewer::setEdgeDashed(int k, bool dashed) {
+bool GraphViewer::setEdgeDashed(unsigned long long k, bool dashed) {
 	char buff[200];
 	sprintf(buff, "setEdgeDashed %d %s\n", k, dashed? "true" : "false");
 	string str(buff);
@@ -192,7 +192,7 @@ bool GraphViewer::defineEdgeCurved(bool curved) {
 	return con->sendMsg(str);
 }
 
-bool GraphViewer::setEdgeThickness(int k, int thickness) {
+bool GraphViewer::setEdgeThickness(unsigned long long k, int thickness) {
 	char buff[200];
 	sprintf(buff, "setEdgeThickness %d %d\n", k, thickness);
 	string str(buff);
@@ -206,7 +206,7 @@ bool GraphViewer::defineVertexColor(string color) {
 	return con->sendMsg(str);
 }
 
-bool GraphViewer::setVertexColor(int k, string color) {
+bool GraphViewer::setVertexColor(unsigned long long k, string color) {
 	char buff[200];
 	sprintf(buff, "setVertexColor %d %s\n", k, color.c_str());
 	string str(buff);
@@ -220,7 +220,7 @@ bool GraphViewer::defineVertexIcon(string filepath) {
 	return con->sendMsg(str);
 }
 
-bool GraphViewer::setVertexIcon(int k, string filepath) {
+bool GraphViewer::setVertexIcon(unsigned long long k, string filepath) {
 	char buff[200];
 	sprintf(buff, "setVertexIcon %d %s\n", k, filepath.c_str());
 	string str(buff);
@@ -234,7 +234,7 @@ bool GraphViewer::defineVertexSize(int size) {
 	return con->sendMsg(str);
 }
 
-bool GraphViewer::setVertexSize(int k, int size) {
+bool GraphViewer::setVertexSize(unsigned long long k, int size) {
 	char buff[200];
 	sprintf(buff, "setVertexSize %d %d\n", k, size);
 	string str(buff);
@@ -248,14 +248,14 @@ bool GraphViewer::setBackground(string path) {
 	return con->sendMsg(str);
 }
 
-bool GraphViewer::setEdgeWeight(int id, int weight) {
+bool GraphViewer::setEdgeWeight(unsigned long long id, int weight) {
 	char buff[200];
 	sprintf(buff, "setEdgeWeight %d %d\n", id, weight);
 	string str(buff);
 	return con->sendMsg(str);
 }
 
-bool GraphViewer::setEdgeFlow(int id, int flow) {
+bool GraphViewer::setEdgeFlow(unsigned long long id, int flow) {
 	char buff[200];
 	sprintf(buff, "setEdgeFlow %d %d\n", id, flow);
 	string str(buff);
