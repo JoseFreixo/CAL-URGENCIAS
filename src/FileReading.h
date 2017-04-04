@@ -99,8 +99,7 @@ bool FileReading::readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 
 		linestream >> idAr;
 		getline(linestream, data, ';');
-		linestream >> roadName;
-		getline(linestream, data, ';');
+		getline(linestream, roadName, ';');
 		linestream >> undirected;
 
 		pair<string, bool> roadInfo(roadName, undirected);
@@ -145,6 +144,8 @@ bool FileReading::readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 		}
 
 		gv->addEdge(arCounter++, v1temp, v2temp, direction);
+
+		gv->setEdgeLabel(arCounter, ((*it).second).first);
 
 		NodeInformation source = graph.getVertex(NodeInformation(v1, 0, 0))->getInfo();
 		NodeInformation dest = graph.getVertex(NodeInformation(v2, 0, 0))->getInfo();
