@@ -55,6 +55,17 @@ bool FileReading::readNodesInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 }
 
 bool FileReading::readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string fileInfo, string fileGeometry, MapCoordinates lol){
+
+	ifstream inFile;
+
+	//Ler o ficheiro Roads.txt
+	inFile.open(fileInfo);
+
+	if (!inFile) {
+		cerr << "Unable to open file " << fileInfo;
+		return false;
+	}
+
 	return true;
 }
 

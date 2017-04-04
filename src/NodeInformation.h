@@ -12,10 +12,10 @@ private:
 	unsigned long long id;
 public:
 	NodeInformation(unsigned int id, long double latitude, long double longitude);
-	long double getLatitude();
-	long double getLongitude();
-	unsigned int getId();
-	bool operator==(NodeInformation & nInfo) const;
+	long double getLatitude() const;
+	long double getLongitude() const;
+	unsigned int getId() const;
+	bool operator==(const NodeInformation & nInfo) const;
 };
 
 NodeInformation::NodeInformation(unsigned int id, long double latitude, long double longitude){
@@ -24,20 +24,20 @@ NodeInformation::NodeInformation(unsigned int id, long double latitude, long dou
 	this->longitude = longitude;
 }
 
-long double NodeInformation::getLatitude(){
+long double NodeInformation::getLatitude() const{
 	return latitude;
 }
 
-long double NodeInformation::getLongitude(){
+long double NodeInformation::getLongitude() const{
 	return longitude;
 }
 
-unsigned int NodeInformation::getId(){
+unsigned int NodeInformation::getId() const{
 	return id;
 }
 
-bool NodeInformation::operator==(NodeInformation & nInfo) const {
-	if (this->id == nInfo.getId())
+bool NodeInformation::operator==(const NodeInformation & nInfo) const {
+	if (getId() == nInfo.getId())
 		return true;
 	return false;
 }
