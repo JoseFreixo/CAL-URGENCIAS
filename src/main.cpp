@@ -5,8 +5,8 @@
 #include <iostream>
 #include <sstream>
 #include "FileReading.h"
+#include "MapCoordinates.h"
 #include "NodeInformation.h"
-#include "utils.h"
 
 int main () {
 	Graph<NodeInformation> graph;
@@ -21,9 +21,7 @@ int main () {
 	gv->defineVertexColor("blue");
 	gv->defineEdgeColor("black");
 
-	MapCoordinates lol;
-
-	FileReading::readNodesInfo(graph, gv, "Nodes.txt", lol);
+	FileReading::readNodesInfo(graph, gv, "Nodes.txt");
 
 //	gv->addNode(0);
 //	gv->addNode(1);

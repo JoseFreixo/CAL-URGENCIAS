@@ -1,5 +1,5 @@
-#ifndef _NODE_INFORMATION_H_
-#define _NODE_INFORMATION_H_
+#ifndef NODEINFORMATION_H_
+#define NODEINFORMATION_H_
 
 #include <string>
 

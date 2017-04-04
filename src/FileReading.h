@@ -5,21 +5,23 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <map>
+#include <utility>
 #include "graphviewer.h"
 #include "NodeInformation.h"
 #include "Graph.h"
-#include "utils.h"
+#include "MapCoordinates.h"
 
 using namespace std;
 
 class FileReading {
 private:
 public:
-	static bool readNodesInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string fileName, MapCoordinates lol);
-	static bool readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string fileInfo, string fileGeometry, MapCoordinates lol);
+	static bool readNodesInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string fileName);
+	static bool readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string fileInfo, string fileGeometry);
 };
 
-bool FileReading::readNodesInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string fileName, MapCoordinates lol){
+bool FileReading::readNodesInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string fileName){
 	ifstream inFile;
 
 	//Ler o ficheiro Nodes.txt
@@ -38,14 +40,17 @@ bool FileReading::readNodesInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 		stringstream linestream(line);
 		string data;
 
+		unsigned int idTemp;
+
 		linestream >> idNo;
-		getline(linestream, data, ';');
-		linestream >> x;
+		idTemp = idNo % numeric_limits<unsigned int>::max();
 		getline(linestream, data, ';');
 		linestream >> y;
-		gv->addNode(idNo, (unsigned long long)((lol.maxLat - x) * 1000 / (lol.maxLat - lol.minLat)), (unsigned long long)((lol.maxLon - y) * 1000 / (lol.maxLon - lol.minLon)));
+		getline(linestream, data, ';');
+		linestream >> x;
+		gv->addNode(idTemp, (int)((MapCoordinates::maxLat - x) * MapCoordinates::windowSize / (MapCoordinates::maxLat - MapCoordinates::minLat)), (int)((MapCoordinates::maxLon - y) * MapCoordinates::windowSize / (MapCoordinates::maxLon - MapCoordinates::minLon)));
 
-		NodeInformation nInfo(idNo, x, y);
+		NodeInformation nInfo(idNo, y, x);
 
 		graph.addVertex(nInfo);
 	}
@@ -54,7 +59,7 @@ bool FileReading::readNodesInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 	return true;
 }
 
-bool FileReading::readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string fileInfo, string fileGeometry, MapCoordinates lol){
+bool FileReading::readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string fileInfo, string fileGeometry){
 
 	ifstream inFile;
 
@@ -64,6 +69,47 @@ bool FileReading::readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 	if (!inFile) {
 		cerr << "Unable to open file " << fileInfo;
 		return false;
+	}
+
+	string line;
+	unsigned long long idAr = 0;
+	string roadName;
+	bool undirected;
+
+	map<unsigned long long, pair<string, bool>> arestasInfo;
+
+	while (getline(inFile, line)){
+		stringstream linestream(line);
+		string data;
+
+		linestream >> idAr;
+		getline(linestream, data, ';');
+		linestream >> roadName;
+		getline(linestream, data, ';');
+		linestream >> undirected;
+
+		pair<string, bool> roadInfo(roadName, undirected);
+		pair<unsigned long long, pair<string, bool>> road(idAr, roadInfo);
+		arestasInfo.insert(road);
+	}
+
+	inFile.open(fileGeometry);
+
+	if (!inFile) {
+		cerr << "Unable to open file " << fileGeometry;
+		return false;
+	}
+
+	int arCounter = 0;
+
+	while (getline(inFile, line)){
+		stringstream linestream(line);
+		string data;
+
+		linestream >> idAr;
+		getline(linestream, data, ';');
+
+
 	}
 
 	return true;
