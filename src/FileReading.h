@@ -136,7 +136,15 @@ bool FileReading::readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 		unsigned int v1temp = v1 % numeric_limits<unsigned int>::max();
 		unsigned int v2temp = v2 % numeric_limits<unsigned int>::max();
 
-		gv->addEdge(arCounter++, v1temp, v2temp, ((*it).second).second);
+		int direction;
+
+		if (((*it).second).second){
+			direction = EdgeType::UNDIRECTED;
+		}else{
+			direction = EdgeType::DIRECTED;
+		}
+
+		gv->addEdge(arCounter++, v1temp, v2temp, direction);
 
 		NodeInformation source = graph.getVertex(NodeInformation(v1, 0, 0))->getInfo();
 		NodeInformation dest = graph.getVertex(NodeInformation(v2, 0, 0))->getInfo();

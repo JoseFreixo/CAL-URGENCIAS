@@ -21,7 +21,7 @@ int main () {
 	FileReading::readRoadsInfo(graph, gv, "Roads.txt", "SubRoads.txt");
 
 	gv->defineEdgeCurved(false);
-	gv->defineVertexColor("blue");
+	gv->defineVertexColor("red");
 	gv->defineEdgeColor("black");
 
 	gv->rearrange();
