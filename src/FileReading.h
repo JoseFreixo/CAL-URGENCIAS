@@ -63,6 +63,7 @@ bool FileReading::readNodesInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 		height = round(yPerc * MapCoordinates::windowHeight);
 
 		gv->addNode(idTemp, width, height);
+		gv->setVertexLabel(idTemp, " ");
 
 		NodeInformation nInfo(idNo, latDeg, longDeg);
 
