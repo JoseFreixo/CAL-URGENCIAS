@@ -3,11 +3,14 @@
 
 class MapCoordinates{
 public:
-	constexpr static double minLat = 41.47029;
-	constexpr static double maxLat = 41.94041;
-	constexpr static double minLon = -8.881213;
-	constexpr static double maxLon = -8.350207;
-	const static int windowSize = 1000;
+	constexpr static double minLat = 41.7145;
+	constexpr static double maxLat = 41.7282;
+	constexpr static double minLong = -8.7881;
+	constexpr static double maxLong = -8.7669;
+	constexpr static double deltaLat = maxLat - minLat;
+	constexpr static double deltaLong = maxLong - minLong;
+	const static int windowHeight = 859;
+	const static int windowWidth = 985;
 };
 
 #endif

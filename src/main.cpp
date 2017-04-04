@@ -11,23 +11,20 @@
 int main () {
 	Graph<NodeInformation> graph;
 
-	GraphViewer *gv = new GraphViewer(1000, 1000, true);
+	GraphViewer *gv = new GraphViewer(MapCoordinates::windowWidth, MapCoordinates::windowHeight, false);
 
-	gv->setBackground("background.jpg");
+	gv->setBackground("background.PNG");
 
-	gv->createWindow(1000, 1000);
+	gv->createWindow(MapCoordinates::windowWidth, MapCoordinates::windowHeight);
 
-	gv->defineEdgeDashed(false);
+	FileReading::readNodesInfo(graph, gv, "Nodes.txt");
+	FileReading::readRoadsInfo(graph, gv, "Roads.txt", "SubRoads.txt");
+
+	gv->defineEdgeCurved(false);
 	gv->defineVertexColor("blue");
 	gv->defineEdgeColor("black");
 
-	FileReading::readNodesInfo(graph, gv, "Nodes.txt");
-
-//	gv->addNode(0);
-//	gv->addNode(1);
-//	gv->addNode(2);
-//	gv->addEdge(0, 0, 1, EdgeType::DIRECTED);
-//	gv->addEdge(1, 0, 2, EdgeType::DIRECTED);
+	gv->rearrange();
 
 	getchar();
 	return 0;
