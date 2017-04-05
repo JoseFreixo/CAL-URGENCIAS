@@ -121,7 +121,6 @@ template <class T>
 class Edge {
 	Vertex<T> * dest;
 	double weight;
-	bool directed;
 public:
 	Edge(Vertex<T> *d, double w);
 	friend class Graph<T>;

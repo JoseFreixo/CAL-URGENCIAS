@@ -13,7 +13,7 @@ int main () {
 
 	GraphViewer *gv = new GraphViewer(MapCoordinates::windowWidth, MapCoordinates::windowHeight, false);
 
-	gv->setBackground("background.PNG");
+	gv->setBackground("background.png");
 
 	gv->createWindow(MapCoordinates::windowWidth, MapCoordinates::windowHeight);
 

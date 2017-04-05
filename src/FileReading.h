@@ -22,6 +22,7 @@ private:
 public:
 	static bool readNodesInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string fileName);
 	static bool readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string fileInfo, string fileGeometry);
+	static bool readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string nodes, string roads);
 };
 
 bool FileReading::readNodesInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string fileName){
@@ -166,6 +167,70 @@ bool FileReading::readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 	inFile.close();
 
 	return true;
+}
+
+static bool FileReading::readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string nodes, string roads){
+
+	ifstream inFile;
+	inFile.open(nodes);
+
+	if (!inFile){
+		cerr << "Unable to open file " << nodes << endl;
+		exit(1);
+	}
+
+	string line;
+
+	int idNo = 0;
+	int x = 0;
+	int y = 0;
+
+	while(getline(inFile, line)){
+		stringstream linestream(line);
+		string data;
+
+		linestream >> idNo;
+		getline(linestream, data, ';');
+		linestream >> x;
+		getline(linestream, data, ';');
+		linestream >> y;
+
+		gv->addNode(idNo, x, y);
+		NodeInformation info(idNo, y, x);
+		graph.addVertex(info);
+	}
+
+	inFile.close();
+
+	inFile.open(roads);
+
+	if (!inFile){
+		cerr << "Unable to open file " << roads << endl;
+		exit(1);
+	}
+
+	int idAresta = 0;
+	string nomeAresta;
+	bool undirected;
+
+	map<int, pair<string, bool>> arestas;
+
+	while(getline(inFile, line)){
+		stringstream linestream(line);
+		string data;
+
+		linestream >> idAresta;
+		getline(linestream, data, ';');
+		getline(linestream, nomeAresta,';');
+		linestream >> undirected;
+
+		pair<string, bool> informAresta(nomeAresta, undirected);
+		pair<int, pair<string, bool>> aresta(idAresta, informAresta);
+
+		arestas.insert(aresta);
+	}
+
+	inFile.close();
 }
 
 #endif
