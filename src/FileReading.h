@@ -52,6 +52,9 @@ bool FileReading::readNodesInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 		getline(linestream, data, ';');
 		linestream >> longDeg;
 
+		if (latDeg > MapCoordinates::maxLat || latDeg < MapCoordinates::minLat || longDeg > MapCoordinates::maxLong || longDeg < MapCoordinates::minLong)
+			continue;
+
 		double xPerc, yPerc;
 
 		xPerc = (longDeg - MapCoordinates::minLong) / MapCoordinates::deltaLong;
@@ -135,6 +138,12 @@ bool FileReading::readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 		unsigned int v1temp = v1 % numeric_limits<unsigned int>::max();
 		unsigned int v2temp = v2 % numeric_limits<unsigned int>::max();
 
+		Vertex<NodeInformation> * v1test = graph.getVertex(NodeInformation(v1, 0, 0));
+		Vertex<NodeInformation> * v2test = graph.getVertex(NodeInformation(v2, 0, 0));
+
+		if (NULL == v1test || NULL == v2test)
+			continue;
+
 		int direction;
 
 		if (((*it).second).second){
@@ -147,8 +156,8 @@ bool FileReading::readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 
 		gv->setEdgeLabel(arCounter, ((*it).second).first);
 
-		NodeInformation source = graph.getVertex(NodeInformation(v1, 0, 0))->getInfo();
-		NodeInformation dest = graph.getVertex(NodeInformation(v2, 0, 0))->getInfo();
+		NodeInformation source = v1test->getInfo();
+		NodeInformation dest = v2test->getInfo();
 		double weight = Haversine::calculateDistance(source.getLatitude(), source.getLongitude(), dest.getLatitude(), dest.getLongitude());
 
 		graph.addEdge(source, dest, weight);
