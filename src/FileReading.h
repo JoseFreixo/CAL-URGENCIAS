@@ -146,11 +146,11 @@ bool FileReading::readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 
 		int direction;
 
-		if (((*it).second).second){
+		if (((*it).second).second)
 			direction = EdgeType::UNDIRECTED;
-		}else{
+		else
 			direction = EdgeType::DIRECTED;
-		}
+
 
 		gv->addEdge(arCounter++, v1temp, v2temp, direction);
 
