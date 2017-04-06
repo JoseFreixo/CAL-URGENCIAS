@@ -253,14 +253,14 @@ bool FileReading::readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv
 
 		auto it = arestas.find(idAresta);
 
-		int undirected;
+		int bidirected;
 
 		if (((*it).second).second)
-			undirected = EdgeType::UNDIRECTED;
+			bidirected = EdgeType::UNDIRECTED;
 		else
-			undirected = EdgeType::DIRECTED;
+			bidirected = EdgeType::DIRECTED;
 
-		gv->addEdge(idAresta, source, dest, undirected);
+		gv->addEdge(idAresta, source, dest, bidirected);
 
 		gv->setEdgeLabel(idAresta, ((*it).second).first);
 

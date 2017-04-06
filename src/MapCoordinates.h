@@ -9,8 +9,8 @@ public:
 	constexpr static double maxLong = -8.5661;
 	constexpr static double deltaLat = maxLat - minLat;
 	constexpr static double deltaLong = maxLong - minLong;
-	const static int windowHeight = 1709;  // 1000
-	const static int windowWidth = 2241;  // 1000
+	const static int windowHeight = 1000; //1709;
+	const static int windowWidth = 1000; //2241;
 };
 
 #endif

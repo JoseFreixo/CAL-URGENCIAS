@@ -13,15 +13,15 @@ int main () {
 
 	GraphViewer *gv = new GraphViewer(MapCoordinates::windowWidth, MapCoordinates::windowHeight, false);
 
-	gv->setBackground("background.png");
+	//gv->setBackground("background.png");
 
 	gv->createWindow(MapCoordinates::windowWidth, MapCoordinates::windowHeight);
 
-	FileReading::readNodesInfo(graph, gv, "Nodes.txt");
-	FileReading::readRoadsInfo(graph, gv, "Roads.txt", "SubRoads.txt");
+	//FileReading::readNodesInfo(graph, gv, "Nodes.txt");
+	//FileReading::readRoadsInfo(graph, gv, "Roads.txt", "SubRoads.txt");
+	FileReading::readSimpleInfo(graph, gv, "FileNodes.txt", "FileRoads.txt", "FileConection.txt");
 
 	gv->defineEdgeCurved(false);
-	gv->defineVertexColor("red");
 	gv->defineEdgeColor("black");
 
 	gv->rearrange();
