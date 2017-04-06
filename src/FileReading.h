@@ -170,7 +170,6 @@ bool FileReading::readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 }
 
 bool FileReading::readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string nodes, string roads, string connections){
-
 	ifstream inFile;
 	inFile.open(nodes);
 
