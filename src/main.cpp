@@ -21,6 +21,8 @@ int main () {
 	//FileReading::readRoadsInfo(graph, gv, "Roads.txt", "SubRoads.txt");
 	FileReading::readSimpleInfo(graph, gv, "FileNodes.txt", "FileRoads.txt", "FileConection.txt");
 
+	gv->setEdgeLabel(1, " ");
+
 	gv->defineEdgeCurved(false);
 	gv->defineEdgeColor("black");
 

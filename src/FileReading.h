@@ -219,9 +219,9 @@ bool FileReading::readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv
 		string data;
 
 		linestream >> idAresta;
-		getline(linestream, data, ';');
+		linestream.ignore(INT_MAX, ';');
 		getline(linestream, nomeAresta,';');
-		linestream >> undirected;
+		getline(linestream, undirected);
 
 		pair<string, string> informAresta(nomeAresta, undirected);
 		pair<int, pair<string, string>> aresta(idAresta, informAresta);
@@ -271,6 +271,10 @@ bool FileReading::readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv
 		int w = sqrt(pow(sourc.getLatitude() - des.getLatitude(), 2) + pow(sourc.getLongitude() - des.getLongitude(),2));
 
 		graph.addEdge(sourc, des, w, idAresta);
+
+		if (bidirected == EdgeType::UNDIRECTED){
+			graph.addEdge(des, sourc, w, idAresta);
+		}
 	}
 
 	inFile.close();
