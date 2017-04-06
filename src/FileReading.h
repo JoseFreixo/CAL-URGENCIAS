@@ -93,9 +93,9 @@ bool FileReading::readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 	string line;
 	unsigned long long idAr = 0;
 	string roadName;
-	bool undirected;
+	string undirected;
 
-	map<unsigned long long, pair<string, bool>> arestasInfo;
+	map<unsigned long long, pair<string, string>> arestasInfo;
 
 	while (getline(inFile, line)){
 		stringstream linestream(line);
@@ -106,8 +106,8 @@ bool FileReading::readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 		getline(linestream, roadName, ';');
 		linestream >> undirected;
 
-		pair<string, bool> roadInfo(roadName, undirected);
-		pair<unsigned long long, pair<string, bool>> road(idAr, roadInfo);
+		pair<string, string> roadInfo(roadName, undirected);
+		pair<unsigned long long, pair<string, string>> road(idAr, roadInfo);
 		arestasInfo.insert(road);
 	}
 
@@ -147,7 +147,7 @@ bool FileReading::readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 
 		int direction;
 
-		if (((*it).second).second)
+		if (((*it).second).second == "True")
 			direction = EdgeType::UNDIRECTED;
 		else
 			direction = EdgeType::DIRECTED;
@@ -211,9 +211,9 @@ bool FileReading::readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv
 
 	int idAresta = 0;
 	string nomeAresta;
-	bool undirected;
+	string undirected;
 
-	map<int, pair<string, bool>> arestas;
+	map<int, pair<string, string>> arestas;
 
 	while(getline(inFile, line)){
 		stringstream linestream(line);
@@ -224,8 +224,8 @@ bool FileReading::readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv
 		getline(linestream, nomeAresta,';');
 		linestream >> undirected;
 
-		pair<string, bool> informAresta(nomeAresta, undirected);
-		pair<int, pair<string, bool>> aresta(idAresta, informAresta);
+		pair<string, string> informAresta(nomeAresta, undirected);
+		pair<int, pair<string, string>> aresta(idAresta, informAresta);
 
 		arestas.insert(aresta);
 	}
@@ -255,7 +255,7 @@ bool FileReading::readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv
 
 		int bidirected;
 
-		if (((*it).second).second)
+		if (((*it).second).second == "True")
 			bidirected = EdgeType::UNDIRECTED;
 		else
 			bidirected = EdgeType::DIRECTED;
