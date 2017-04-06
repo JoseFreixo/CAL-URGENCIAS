@@ -22,7 +22,7 @@ private:
 public:
 	static bool readNodesInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string fileName);
 	static bool readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string fileInfo, string fileGeometry);
-	static bool readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string nodes, string roads);
+	static bool readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string nodes, string roads, string connections);
 };
 
 bool FileReading::readNodesInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string fileName){
@@ -161,7 +161,7 @@ bool FileReading::readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 		NodeInformation dest = v2test->getInfo();
 		double weight = Haversine::calculateDistance(source.getLatitude(), source.getLongitude(), dest.getLatitude(), dest.getLongitude());
 
-		graph.addEdge(source, dest, weight);
+		graph.addEdge(source, dest, weight, arCounter);
 	}
 
 	inFile.close();
@@ -169,14 +169,14 @@ bool FileReading::readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 	return true;
 }
 
-static bool FileReading::readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string nodes, string roads){
+bool FileReading::readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string nodes, string roads, string connections){
 
 	ifstream inFile;
 	inFile.open(nodes);
 
 	if (!inFile){
 		cerr << "Unable to open file " << nodes << endl;
-		exit(1);
+		return false;
 	}
 
 	string line;
@@ -206,7 +206,7 @@ static bool FileReading::readSimpleInfo(Graph<NodeInformation> & graph, GraphVie
 
 	if (!inFile){
 		cerr << "Unable to open file " << roads << endl;
-		exit(1);
+		return false;
 	}
 
 	int idAresta = 0;
@@ -231,6 +231,52 @@ static bool FileReading::readSimpleInfo(Graph<NodeInformation> & graph, GraphVie
 	}
 
 	inFile.close();
+
+	inFile.open(connections);
+
+	if (!inFile){
+		cerr << "Unable to open file " << connections << endl;
+		return false;
+	}
+
+	int source = 0, dest = 0;
+
+	while(getline(inFile, line)){
+		stringstream linestream(line);
+		string data;
+
+		linestream >> idAresta;
+		getline(linestream, data, ';');
+		linestream >> source;
+		getline(linestream, data, ';');
+		linestream >> dest;
+
+		auto it = arestas.find(idAresta);
+
+		int undirected;
+
+		if (((*it).second).second)
+			undirected = EdgeType::UNDIRECTED;
+		else
+			undirected = EdgeType::DIRECTED;
+
+		gv->addEdge(idAresta, source, dest, undirected);
+
+		gv->setEdgeLabel(idAresta, ((*it).second).first);
+
+		Vertex<NodeInformation> * v1test = graph.getVertex(NodeInformation(source, 0, 0));
+		Vertex<NodeInformation> * v2test = graph.getVertex(NodeInformation(dest, 0, 0));
+
+		NodeInformation sourc = v1test->getInfo();
+		NodeInformation des = v2test->getInfo();
+		int w = sqrt(pow(sourc.getLatitude() - des.getLatitude(), 2) + pow(sourc.getLongitude() - des.getLongitude(),2));
+
+		graph.addEdge(sourc, des, w, idAresta);
+	}
+
+	inFile.close();
+
+	return true;
 }
 
 #endif
