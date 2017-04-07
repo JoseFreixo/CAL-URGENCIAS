@@ -186,12 +186,12 @@ bool FileReading::readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv
 
 	while(getline(inFile, line)){
 		stringstream linestream(line);
-		string data;
+		string trash;
 
 		linestream >> idNo;
-		getline(linestream, data, ';');
+		getline(linestream, trash, ';');
 		linestream >> x;
-		getline(linestream, data, ';');
+		getline(linestream, trash, ';');
 		linestream >> y;
 
 		gv->addNode(idNo, x, y);
@@ -214,9 +214,9 @@ bool FileReading::readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv
 
 	map<int, pair<string, string>> arestas;
 
+
 	while(getline(inFile, line)){
-		stringstream linestream(line);
-		string data;
+		istringstream linestream(line);
 
 		linestream >> idAresta;
 		linestream.ignore(INT_MAX, ';');
