@@ -9,6 +9,7 @@ void RandomEmergency(Graph<NodeInformation> graph, GraphViewer *gv){
 
 	int id;
 	id = graph.getVertexSet()[indexVertex]->getInfo().getId();
+	graph.dijkstraShortestPath(graph.getVertexSet()[indexVertex]->getInfo());
 
 	switch(emergencyType){
 		case 1:
@@ -27,7 +28,5 @@ void RandomEmergency(Graph<NodeInformation> graph, GraphViewer *gv){
 			gv->setVertexColor(id, BLACK);
 			break;
 	}
-
-	graph.dijkstraShortestPath(graph.getVertexSet()[indexVertex]->getInfo());
 
 }

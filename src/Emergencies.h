@@ -8,5 +8,4 @@
 
 void RandomEmergency(Graph<NodeInformation> graph, GraphViewer *gv);
 
-
 #endif
