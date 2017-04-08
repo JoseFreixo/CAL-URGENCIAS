@@ -5,7 +5,10 @@
 #include "Graph.h"
 #include "NodeInformation.h"
 #include "graphviewer.h"
+#include "Vehicle.h"
 
-void RandomEmergency(Graph<NodeInformation> graph, GraphViewer *gv);
+vector<Vehicle> generateVehicles(const Graph<NodeInformation> & graph, GraphViewer *gv);
+
+void RandomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv);
 
 #endif
