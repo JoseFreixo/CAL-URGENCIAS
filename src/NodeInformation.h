@@ -12,6 +12,7 @@ private:
 	unsigned long long id;
 	string nodeType;
 public:
+    NodeInformation();
 	NodeInformation(unsigned int id, long double latitude, long double longitude);
 	NodeInformation(unsigned int id, long double latitude, long double longitude, string nodeType);
 	long double getLatitude() const;

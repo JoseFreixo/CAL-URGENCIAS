@@ -1,8 +1,9 @@
 #include "Vehicle.h"
 
+
 using namespace std;
 
-Vehicle::Vehicle(string type, NodeInformation info, bool busy){
+Vehicle::Vehicle(string type, const NodeInformation &info, bool busy){
 	this->type = type;
 	this->info = info;
 	this->busy = busy;

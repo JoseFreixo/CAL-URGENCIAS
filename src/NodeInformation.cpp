@@ -1,5 +1,8 @@
 #include "NodeInformation.h"
 
+NodeInformation::NodeInformation(){
+}
+
 NodeInformation::NodeInformation(unsigned int id, long double latitude, long double longitude){
     this->id = id;
     this->latitude = latitude;
@@ -40,3 +43,5 @@ bool NodeInformation::operator==(const NodeInformation & nInfo) const {
         return true;
     return false;
 }
+
+
