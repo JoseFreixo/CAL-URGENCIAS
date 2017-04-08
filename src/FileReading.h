@@ -189,16 +189,18 @@ bool FileReading::readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv
 
 	while(getline(inFile, line)){
 		stringstream linestream(line);
-		string trash;
+		string trash, nodeType = "";
 
 		linestream >> idNo;
 		getline(linestream, trash, ';');
 		linestream >> x;
 		getline(linestream, trash, ';');
 		linestream >> y;
+        getline(linestream, trash, ';');
+        getline(linestream, nodeType, ';');
 
 		gv->addNode(idNo, x, y);
-		NodeInformation info(idNo, y, x);
+		NodeInformation info(idNo, y, x, nodeType);
 		graph.addVertex(info);
 	}
 
