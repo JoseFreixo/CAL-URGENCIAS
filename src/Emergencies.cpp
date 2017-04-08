@@ -118,5 +118,6 @@ void RandomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
 		currentNode = ((graph.getVertex(currentNode))->path)->getInfo();
 		way.push_back(currentNode.getId());
 	}while(currentNode.getId() != id);
-
+	vehicles[pos].setWay(way);
+	vehicles[pos].setBusy(true);
 }

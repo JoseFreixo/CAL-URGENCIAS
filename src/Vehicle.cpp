@@ -32,7 +32,7 @@ void Vehicle::setBusy(bool busy){
 	this->busy = busy;
 }
 
-void Vehicle::setWay(vector<int> way){
+void Vehicle::setWay(vector<int> & way){
 	this->way = way;
 }
 

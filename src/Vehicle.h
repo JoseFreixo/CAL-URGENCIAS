@@ -21,7 +21,7 @@ public:
 	vector<int> getWay() const;
 	void setInfo(NodeInformation info);
 	void setBusy(bool busy);
-	void setWay(vector<int> way);
+	void setWay(vector<int> & way);
 };
 
 #endif
