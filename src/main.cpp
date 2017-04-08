@@ -7,6 +7,7 @@
 #include <iostream>
 #include "Graph.h"
 #include "Vehicle.h"
+#include <vector>
 
 void readInt(int &n){
 //    int tmp = n;
