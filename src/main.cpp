@@ -3,8 +3,10 @@
 #include "graphviewer.h"
 #include "FileReading.h"
 #include "NodeInformation.h"
+#include "Emergencies.h"
 #include <iostream>
 #include "Graph.h"
+#include "Vehicle.h"
 
 void readInt(int &n){
 //    int tmp = n;
@@ -32,6 +34,8 @@ int main () {
     gv->createWindow(MapCoordinates::windowWidth, MapCoordinates::windowHeight);
 
     FileReading::readSimpleInfo(graph, gv, "FileNodes.txt", "FileRoads.txt", "FileConection.txt");
+
+    vector<Vehicle> vehicles = generateVehicles(graph, gv);
 
     gv->defineEdgeCurved(false);
     gv->defineVertexColor("green");
