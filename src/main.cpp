@@ -6,7 +6,23 @@
 #include <iostream>
 #include "Graph.h"
 
-int readInt(int &n);
+void readInt(int &n){
+//    int tmp = n;
+    do
+    {
+        if(cin.fail()) {
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
+            cerr << "\nInseriu um caracter invalido, tente novamente ";
+        }
+
+        cin >> n;
+
+    }while(cin.fail());
+
+    cin.ignore(); //Ignores the '\n' character
+
+}
 
 int main () {
 
@@ -28,7 +44,7 @@ int main () {
     while(true){
 
         /*Menu*/
-        cout << "Sistema de Gestao de Emergencias\n\n";
+        cout << "\nSistema de Gestao de Emergencias\n\n";
         cout << "1. Gerar Emergencia aleatoria\n";
         cout << "2. Mostrar unidades disponiveis\n";
         cout <<"Insira uma das opcoes: ";
@@ -52,21 +68,4 @@ int main () {
 
 }
 
-int readInt(int &n){
-//    int tmp = n;
-    do
-    {
-        if(cin.fail()) {
-            cin.clear();
-            cin.ignore(INT_MAX, '\n');
-            cerr << "\nInseriu um caracter invalido, tente novamente ";
-        }
-
-        cin >> n;
-
-    }while(cin.fail());
-
-    cin.ignore(); //Ignores the '\n' character
-
-}
 
