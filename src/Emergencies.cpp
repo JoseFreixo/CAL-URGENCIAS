@@ -6,6 +6,7 @@ vector<Vehicle> generateVehicles(const Graph<NodeInformation> & graph, GraphView
 	int indexVertex;
 	srand (time(NULL));
 
+
 	do{
 		indexVertex = rand() % graph.getNumVertex();
 	} while(graph.getVertexSet()[indexVertex]->getInfo().getType() != "");

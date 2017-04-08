@@ -13,3 +13,4 @@ vector<Vehicle> generateVehicles(const Graph<NodeInformation> & graph, GraphView
 void RandomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Vehicle> vehicles);
 
 #endif
+
