@@ -4,6 +4,7 @@ vector<Vehicle> generateVehicles(const Graph<NodeInformation> & graph, GraphView
 	vector<Vehicle> vehicles;
 
 	int indexVertex;
+	srand (time(NULL));
 
 	do{
 		indexVertex = rand() % graph.getNumVertex();

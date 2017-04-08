@@ -6,6 +6,7 @@
 #include "NodeInformation.h"
 #include "graphviewer.h"
 #include "Vehicle.h"
+#include <time.h>
 
 vector<Vehicle> generateVehicles(const Graph<NodeInformation> & graph, GraphViewer *gv);
 
