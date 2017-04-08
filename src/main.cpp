@@ -34,6 +34,7 @@ int main () {
     FileReading::readSimpleInfo(graph, gv, "FileNodes.txt", "FileRoads.txt", "FileConection.txt");
 
     gv->defineEdgeCurved(false);
+    gv->defineVertexColor("green");
     gv->defineEdgeColor("black");
     gv->rearrange();
 
