@@ -48,7 +48,7 @@ vector<Vehicle> generateVehicles(const Graph<NodeInformation> & graph, GraphView
 	return vehicles;
 }
 
-void RandomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv){
+void RandomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Vehicle> vehicles){
 	int indexVertex;
 	do{
 		indexVertex = rand() % graph.getNumVertex();
@@ -59,22 +59,66 @@ void RandomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv){
 	id = graph.getVertexSet()[indexVertex]->getInfo().getId();
 	graph.dijkstraShortestPath(graph.getVertexSet()[indexVertex]->getInfo());
 
+	int pos;
+
 	switch(emergencyType){
 		case 1:
 			gv->setVertexColor(id, BLUE);
+			int distance = INT_INFINITY;
+			for (size_t i = 0; i < vehicles.size; i++){
+				if (vehicles[i].getType() == "Policecar" && !(vehicles[i].getBusy()) && graph.getVertex(vehicles[i].getInfo())->getDist() < distance){
+					pos = i;
+					distance = graph.getVertex(vehicles[i].getInfo())->getDist();
+				}
+			}
 			break;
 		case 2:
 			gv->setVertexColor(id, RED);
+			int distance = INT_INFINITY;
+			for (size_t i = 0; i < vehicles.size; i++){
+				if (vehicles[i].getType() == "Firetruck" && !(vehicles[i].getBusy()) && graph.getVertex(vehicles[i].getInfo())->getDist() < distance){
+					pos = i;
+					distance = graph.getVertex(vehicles[i].getInfo())->getDist();
+				}
+			}
 			break;
 		case 3:
 			gv->setVertexColor(id, YELLOW);
+			int distance = INT_INFINITY;
+			for (size_t i = 0; i < vehicles.size; i++){
+				if (vehicles[i].getType() == "Motorcycle" && !(vehicles[i].getBusy()) && graph.getVertex(vehicles[i].getInfo())->getDist() < distance){
+					pos = i;
+					distance = graph.getVertex(vehicles[i].getInfo())->getDist();
+				}
+			}
 			break;
 		case 4:
 			gv->setVertexColor(id, ORANGE);
+			int distance = INT_INFINITY;
+			for (size_t i = 0; i < vehicles.size; i++){
+				if (vehicles[i].getType() == "Van" && !(vehicles[i].getBusy()) && graph.getVertex(vehicles[i].getInfo())->getDist() < distance){
+					pos = i;
+					distance = graph.getVertex(vehicles[i].getInfo())->getDist();
+				}
+			}
 			break;
 		case 5:
 			gv->setVertexColor(id, BLACK);
+			int distance = INT_INFINITY;
+			for (size_t i = 0; i < vehicles.size; i++) {
+				if (vehicles[i].getType() == "Ambulance" && !(vehicles[i].getBusy()) && graph.getVertex(vehicles[i].getInfo())->getDist() < distance) {
+					pos = i;
+					distance = graph.getVertex(vehicles[i].getInfo())->getDist();
+				}
+			}
 			break;
 	}
+
+	NodeInformation currentNode = vehicles[pos].getInfo();
+	vector<int> way;
+	do{
+		currentNode = ((graph.getVertex(currentNode))->path)->getInfo();
+		way.push_back(currentNode.getId());
+	}while(currentNode.getId() != id);
 
 }

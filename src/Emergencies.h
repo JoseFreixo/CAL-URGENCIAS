@@ -9,6 +9,6 @@
 
 vector<Vehicle> generateVehicles(const Graph<NodeInformation> & graph, GraphViewer *gv);
 
-void RandomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv);
+void RandomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Vehicle> vehicles);
 
 #endif
