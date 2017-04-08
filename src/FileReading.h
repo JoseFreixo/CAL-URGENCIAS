@@ -7,13 +7,14 @@
 #include <limits>
 #include <map>
 #include <string>
+#include <sstream>
 #include <utility>
 
-#include "graphviewer.h"
-#include "Graph.h"
 #include "Haversine.h"
-#include "MapCoordinates.h"
+#include "Graph.h"
+#include "graphviewer.h"
 #include "NodeInformation.h"
+
 
 using namespace std;
 
@@ -67,11 +68,13 @@ bool FileReading::readNodesInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 		height = round(yPerc * MapCoordinates::windowHeight);
 
 		gv->addNode(idTemp, width, height);
-		gv->setVertexLabel(idTemp, " ");
+		//gv->setVertexLabel(idTemp, " ");
 
 		NodeInformation nInfo(idNo, latDeg, longDeg);
 
 		graph.addVertex(nInfo);
+
+        cout << "idNo (grafo) " << idNo << "  Gv id" << idTemp;
 	}
 
 	inFile.close();

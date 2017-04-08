@@ -1,32 +1,72 @@
-#include <cstdio>
-#include "graphviewer.h"
 #include <string>
-#include <fstream>
-#include <iostream>
-#include <sstream>
-#include "FileReading.h"
 #include "MapCoordinates.h"
+#include "graphviewer.h"
+#include "FileReading.h"
 #include "NodeInformation.h"
+#include <iostream>
+#include "Graph.h"
+
+int readInt(int &n);
 
 int main () {
+
 	Graph<NodeInformation> graph;
 
-	GraphViewer *gv = new GraphViewer(MapCoordinates::windowWidth, MapCoordinates::windowHeight, false);
+    GraphViewer* gv = new GraphViewer(MapCoordinates::windowWidth, MapCoordinates::windowHeight, false);
+    gv->createWindow(MapCoordinates::windowWidth, MapCoordinates::windowHeight);
 
-	//gv->setBackground("background.png");
+    FileReading::readSimpleInfo(graph, gv, "FileNodes.txt", "FileRoads.txt", "FileConection.txt");
 
-	gv->createWindow(MapCoordinates::windowWidth, MapCoordinates::windowHeight);
+    gv->defineEdgeCurved(false);
+    gv->defineEdgeColor("black");
+    gv->rearrange();
 
-	//FileReading::readNodesInfo(graph, gv, "Nodes.txt");
-	//FileReading::readRoadsInfo(graph, gv, "Roads.txt", "SubRoads.txt");
-	FileReading::readSimpleInfo(graph, gv, "FileNodes.txt", "FileRoads.txt", "FileConection.txt");
 
-	gv->defineEdgeCurved(false);
-	gv->defineEdgeColor("black");
 
-	gv->rearrange();
+    int choice = -1;
 
-	getchar();
-	return 0;
+    while(true){
+
+        /*Menu*/
+        cout << "Sistema de Gestao de Emergencias\n\n";
+        cout << "1. Gerar Emergencia aleatoria\n";
+        cout << "2. Mostrar unidades disponiveis\n";
+        cout <<"Insira uma das opcoes: ";
+
+        readInt(choice);
+
+        switch (choice){
+            case 1:
+                //randomEmergency();
+                break;
+            case 2:
+                //showAvaiableUnits();
+                break;
+            case 0:
+                return 0;
+            default:
+                cout << "Opcao invalida, tente novamente...\n";
+                break;
+        }
+    }
+
+}
+
+int readInt(int &n){
+//    int tmp = n;
+    do
+    {
+        if(cin.fail()) {
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
+            cerr << "\nInseriu um caracter invalido, tente novamente ";
+        }
+
+        cin >> n;
+
+    }while(cin.fail());
+
+    cin.ignore(); //Ignores the '\n' character
+
 }
 
