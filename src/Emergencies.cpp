@@ -63,7 +63,6 @@ void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
 
 	unsigned int id;
 	id = vertexes[indexVertex]->getInfo().getId();
-	//graph.dijkstraShortestPath(vertexes[indexVertex]->getInfo());
 
 	int pos;
 	int distance = INT_INFINITY;

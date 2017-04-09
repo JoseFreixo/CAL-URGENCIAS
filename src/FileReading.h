@@ -70,7 +70,7 @@ bool FileReading::readNodesInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 		gv->addNode(idTemp, width, height);
 		//gv->setVertexLabel(idTemp, " ");
 
-		NodeInformation nInfo(idNo, latDeg, longDeg);
+		NodeInformation nInfo(idTemp, latDeg, longDeg);
 
 		graph.addVertex(nInfo);
 
