@@ -61,7 +61,7 @@ int main () {
 
         switch (choice){
             case 1:
-                randomEmergency(graph, gv, vehicles);
+                randomEmergency(graph, gv, vehicles, buildings);
                 break;
 //            case 2:
 //                //showAvaiableUnits();

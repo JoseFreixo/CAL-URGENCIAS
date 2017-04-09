@@ -51,7 +51,8 @@ vector<Vehicle> generateVehicles(const Graph<NodeInformation> & graph, GraphView
 	return vehicles;
 }
 
-void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Vehicle> &vehicles){
+void randomEmergency(Graph<NodeInformation> graph, GraphViewer *gv, vector<Vehicle> vehicles, const vector<NodeInformation> &buildings)
+{
 	int indexVertex;
     vector<Vertex<NodeInformation>*> vertexes = graph.getVertexSet();
 
