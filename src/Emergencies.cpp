@@ -213,7 +213,7 @@ void getPathToEmergencyCentre(Graph<NodeInformation> & graph, int emergencyType,
 	case 1:
 		for (size_t i = 0; i < buildings.size(); i++){
 			if (buildings[i].getType() == "Police Department"){
-				graph.dijkstraShortestPath(buildings[i]);
+				graph.dijkstraShortestPath(graph.getVertex(vehicle.getInfo())->getInfo());
 				if (graph.getVertex(vehicle.getInfo())->getDist() < distance){
 					distance = graph.getVertex(vehicle.getInfo())->getDist();
 
@@ -232,7 +232,7 @@ void getPathToEmergencyCentre(Graph<NodeInformation> & graph, int emergencyType,
 	case 2:
 		for (size_t i = 0; i < buildings.size(); i++){
 			if (buildings[i].getType() == "Fire Department"){
-				graph.dijkstraShortestPath(buildings[i]);
+				graph.dijkstraShortestPath(graph.getVertex(vehicle.getInfo())->getInfo());
 				if (graph.getVertex(vehicle.getInfo())->getDist() < distance){
 					distance = graph.getVertex(vehicle.getInfo())->getDist();
 
@@ -251,7 +251,7 @@ void getPathToEmergencyCentre(Graph<NodeInformation> & graph, int emergencyType,
 	default:
 		for (size_t i = 0; i < buildings.size(); i++){
 			if (buildings[i].getType() == "Hospital"){
-				graph.dijkstraShortestPath(buildings[i]);
+				graph.dijkstraShortestPath(graph.getVertex(vehicle.getInfo())->getInfo());
 				if (graph.getVertex(vehicle.getInfo())->getDist() < distance){
 					distance = graph.getVertex(vehicle.getInfo())->getDist();
 
