@@ -12,7 +12,7 @@ vector<Vehicle> generateVehicles(const Graph<NodeInformation> & graph, GraphView
 		indexVertex = rand() % graph.getNumVertex();
 	} while(vertexes[indexVertex]->getInfo().getType() != "");
 
-	Vehicle vehicle1("Ambulance", vertexes[indexVertex]->getInfo(), false);
+	Vehicle vehicle1("Ambulancia", vertexes[indexVertex]->getInfo(), false);
 	gv->setVertexIcon(vertexes[indexVertex]->getInfo().getId(), "ambulance.png");
 	vehicles.push_back(vehicle1);
 
@@ -20,7 +20,7 @@ vector<Vehicle> generateVehicles(const Graph<NodeInformation> & graph, GraphView
 		indexVertex = rand() % graph.getNumVertex();
 	} while(vertexes[indexVertex]->getInfo().getType() != "");
 
-	Vehicle vehicle2("Van", vertexes[indexVertex]->getInfo(), false);
+	Vehicle vehicle2("Carrinha", vertexes[indexVertex]->getInfo(), false);
 	gv->setVertexIcon(vertexes[indexVertex]->getInfo().getId(), "van.png");
 	vehicles.push_back(vehicle2);
 
@@ -28,7 +28,7 @@ vector<Vehicle> generateVehicles(const Graph<NodeInformation> & graph, GraphView
 		indexVertex = rand() % graph.getNumVertex();
 	} while(vertexes[indexVertex]->getInfo().getType() != "");
 
-	Vehicle vehicle3("Motorcycle", vertexes[indexVertex]->getInfo(), false);
+	Vehicle vehicle3("Mota", vertexes[indexVertex]->getInfo(), false);
 	gv->setVertexIcon(vertexes[indexVertex]->getInfo().getId(), "motorcycle.png");
 	vehicles.push_back(vehicle3);
 
@@ -36,7 +36,7 @@ vector<Vehicle> generateVehicles(const Graph<NodeInformation> & graph, GraphView
 		indexVertex = rand() % graph.getNumVertex();
 	} while(vertexes[indexVertex]->getInfo().getType() != "");
 
-	Vehicle vehicle4("Policecar", vertexes[indexVertex]->getInfo(), false);
+	Vehicle vehicle4("Carro da Policia", vertexes[indexVertex]->getInfo(), false);
 	gv->setVertexIcon(vertexes[indexVertex]->getInfo().getId(), "police.png");
 	vehicles.push_back(vehicle4);
 
@@ -44,7 +44,7 @@ vector<Vehicle> generateVehicles(const Graph<NodeInformation> & graph, GraphView
 		indexVertex = rand() % graph.getNumVertex();
 	} while(vertexes[indexVertex]->getInfo().getType() != "");
 
-	Vehicle vehicle5("Firetruck", vertexes[indexVertex]->getInfo(), false);
+	Vehicle vehicle5("Camiao dos Bombeiros", vertexes[indexVertex]->getInfo(), false);
 	gv->setVertexIcon(vertexes[indexVertex]->getInfo().getId(), "firemen.png");
 	vehicles.push_back(vehicle5);
 
@@ -71,7 +71,7 @@ void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
 		case 1:
 			gv->setVertexColor(id, BLUE);
 			for (size_t i = 0; i < vehicles.size(); i++){
-				if (vehicles[i].getType() == "Policecar" && !(vehicles[i].getBusy())) {
+				if (vehicles[i].getType() == "Carro da Policia" && !(vehicles[i].getBusy())) {
 					graph.dijkstraShortestPath(vehicles[i].getInfo());
 					if (graph.getVertex(vertexes[indexVertex]->getInfo())->getDist() < distance){
 						pos = i;
@@ -88,12 +88,11 @@ void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
 					}
 				}
 			}
-            cout << "O carro da Policia ira percorrer a distancia minima de " << distance << " metros ate ao vertice Azul\n";
-			break;
+            break;
 		case 2:
 			gv->setVertexColor(id, RED);
 			for (size_t i = 0; i < vehicles.size(); i++){
-				if (vehicles[i].getType() == "Firetruck" && !(vehicles[i].getBusy())) {
+				if (vehicles[i].getType() == "Camiao dos Bombeiros" && !(vehicles[i].getBusy())) {
 					graph.dijkstraShortestPath(vehicles[i].getInfo());
 					if (graph.getVertex(vertexes[indexVertex]->getInfo())->getDist() < distance) {
 						pos = i;
@@ -110,12 +109,11 @@ void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
 					}
 				}
 			}
-            cout << "O Camiao dos Bombeiros ira percorrer a distancia minima de " << distance << " metros ate ao incendio (vertice vermelho)\n";
-			break;
+            break;
 		case 3:
 			gv->setVertexColor(id, YELLOW);
 			for (size_t i = 0; i < vehicles.size(); i++){
-				if (vehicles[i].getType() == "Motorcycle" && !(vehicles[i].getBusy())) {
+				if (vehicles[i].getType() == "Mota" && !(vehicles[i].getBusy())) {
 					graph.dijkstraShortestPath(vehicles[i].getInfo());
 					if (graph.getVertex(vertexes[indexVertex]->getInfo())->getDist() < distance) {
 						pos = i;
@@ -132,12 +130,11 @@ void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
 					}
 				}
 			}
-            cout << "A Mota do INEM ira percorrer a distancia minima de " << distance << " metros ate a emergencia de baixa gravidade\n";
-			break;
+            break;
 		case 4:
 			gv->setVertexColor(id, ORANGE);
 			for (size_t i = 0; i < vehicles.size(); i++){
-				if (vehicles[i].getType() == "Van" && !(vehicles[i].getBusy())) {
+				if (vehicles[i].getType() == "Carrinha" && !(vehicles[i].getBusy())) {
 					graph.dijkstraShortestPath(vehicles[i].getInfo());
 					if (graph.getVertex(vertexes[indexVertex]->getInfo())->getDist() < distance) {
 						pos = i;
@@ -154,12 +151,11 @@ void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
 					}
 				}
 			}
-            cout << "A Carrinha INEM ira percorrer a distancia minima de " << distance << " metros ate a emergencia de moderada gravidade\n";
             break;
 		case 5:
 			gv->setVertexColor(id, BLACK);
 			for (size_t i = 0; i < vehicles.size(); i++) {
-				if (vehicles[i].getType() == "Ambulance" && !(vehicles[i].getBusy())) {
+				if (vehicles[i].getType() == "Ambulancia" && !(vehicles[i].getBusy())) {
 					graph.dijkstraShortestPath(vehicles[i].getInfo());
 					if (graph.getVertex(vertexes[indexVertex]->getInfo())->getDist() < distance) {
 						pos = i;
@@ -176,15 +172,16 @@ void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
 					}
 				}
 			}
-            cout << "A Ambulancia ira percorrer a distancia minima de " << distance <<" metros ate a emergencia de elevada gravidade\n";
 			break;
 	}
+
+	gv->rearrange();
 
 	if (distance == INT_INFINITY){
 		cout << "Nao ha veiculos adequados disponiveis.";
 		return;
 	}
-
+	cout << "O/A "<< vehicles[pos].getType() <<" ira percorrer a distancia minima de " << distance <<" metros ate a emergencia\n";
 	vehicles[pos].setBusy(true);
     followPath(graph, gv, vehicles[pos]);
 
@@ -207,15 +204,15 @@ void followPath(Graph<NodeInformation> & graph, GraphViewer *gv, Vehicle &vehicl
 }
 
 string iconPath(const string &vehicleType){
-	if(vehicleType == "Ambulance")
+	if(vehicleType == "Ambulancia")
 		return "ambulance.png";
-	if(vehicleType == "Van")
+	if(vehicleType == "Carrinha")
 		return  "van.png";
-	if(vehicleType == "Motorcycle")
-		return "motocycle.png";
-	if(vehicleType == "Policecar")
+	if(vehicleType == "Mota")
+		return "motorcycle.png";
+	if(vehicleType == "Carro da Policia")
 		return "police.png";
-	if(vehicleType == "Firetruck")
+	if(vehicleType == "Camiao dos Bombeiros")
 		return "firemen.png";
 
 	return "";
