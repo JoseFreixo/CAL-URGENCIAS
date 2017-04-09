@@ -2,6 +2,7 @@
 
 vector<Vehicle> generateVehicles(const Graph<NodeInformation> & graph, GraphViewer *gv){
 	vector<Vehicle> vehicles;
+    vector<Vertex<NodeInformation>*> vertexes = graph.getVertexSet();
 
 	int indexVertex;
 	srand (time(NULL));
@@ -9,57 +10,59 @@ vector<Vehicle> generateVehicles(const Graph<NodeInformation> & graph, GraphView
 
 	do{
 		indexVertex = rand() % graph.getNumVertex();
-	} while(graph.getVertexSet()[indexVertex]->getInfo().getType() != "");
+	} while(vertexes[indexVertex]->getInfo().getType() != "");
 
-	Vehicle vehicle1("Ambulance", graph.getVertexSet()[indexVertex]->getInfo(), false);
-	gv->setVertexIcon(graph.getVertexSet()[indexVertex]->getInfo().getId(), "ambulance.png");
+	Vehicle vehicle1("Ambulance", vertexes[indexVertex]->getInfo(), false);
+	gv->setVertexIcon(vertexes[indexVertex]->getInfo().getId(), "ambulance.png");
 	vehicles.push_back(vehicle1);
 
 	do{
 		indexVertex = rand() % graph.getNumVertex();
-	} while(graph.getVertexSet()[indexVertex]->getInfo().getType() != "");
+	} while(vertexes[indexVertex]->getInfo().getType() != "");
 
-	Vehicle vehicle2("Van", graph.getVertexSet()[indexVertex]->getInfo(), false);
-	gv->setVertexIcon(graph.getVertexSet()[indexVertex]->getInfo().getId(), "van.png");
+	Vehicle vehicle2("Van", vertexes[indexVertex]->getInfo(), false);
+	gv->setVertexIcon(vertexes[indexVertex]->getInfo().getId(), "van.png");
 	vehicles.push_back(vehicle2);
 
 	do{
 		indexVertex = rand() % graph.getNumVertex();
-	} while(graph.getVertexSet()[indexVertex]->getInfo().getType() != "");
+	} while(vertexes[indexVertex]->getInfo().getType() != "");
 
-	Vehicle vehicle3("Motorcycle", graph.getVertexSet()[indexVertex]->getInfo(), false);
-	gv->setVertexIcon(graph.getVertexSet()[indexVertex]->getInfo().getId(), "motorcycle.png");
+	Vehicle vehicle3("Motorcycle", vertexes[indexVertex]->getInfo(), false);
+	gv->setVertexIcon(vertexes[indexVertex]->getInfo().getId(), "motorcycle.png");
 	vehicles.push_back(vehicle3);
 
 	do{
 		indexVertex = rand() % graph.getNumVertex();
-	} while(graph.getVertexSet()[indexVertex]->getInfo().getType() != "");
+	} while(vertexes[indexVertex]->getInfo().getType() != "");
 
-	Vehicle vehicle4("Policecar", graph.getVertexSet()[indexVertex]->getInfo(), false);
-	gv->setVertexIcon(graph.getVertexSet()[indexVertex]->getInfo().getId(), "police.png");
+	Vehicle vehicle4("Policecar", vertexes[indexVertex]->getInfo(), false);
+	gv->setVertexIcon(vertexes[indexVertex]->getInfo().getId(), "police.png");
 	vehicles.push_back(vehicle4);
 
 	do{
 		indexVertex = rand() % graph.getNumVertex();
-	} while(graph.getVertexSet()[indexVertex]->getInfo().getType() != "");
+	} while(vertexes[indexVertex]->getInfo().getType() != "");
 
-	Vehicle vehicle5("Firetruck", graph.getVertexSet()[indexVertex]->getInfo(), false);
-	gv->setVertexIcon(graph.getVertexSet()[indexVertex]->getInfo().getId(), "firemen.png");
+	Vehicle vehicle5("Firetruck", vertexes[indexVertex]->getInfo(), false);
+	gv->setVertexIcon(vertexes[indexVertex]->getInfo().getId(), "firemen.png");
 	vehicles.push_back(vehicle5);
 
 	return vehicles;
 }
 
-void RandomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Vehicle> vehicles){
+void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Vehicle> &vehicles){
 	int indexVertex;
-	do{
+    vector<Vertex<NodeInformation>*> vertexes = graph.getVertexSet();
+
+    do{
 		indexVertex = rand() % graph.getNumVertex();
-	} while(graph.getVertexSet()[indexVertex]->getInfo().getType() != "");
+	} while(vertexes[indexVertex]->getInfo().getType() != "");
 	int emergencyType = rand() % 5 + 1;
 
 	unsigned int id;
-	id = graph.getVertexSet()[indexVertex]->getInfo().getId();
-	graph.dijkstraShortestPath(graph.getVertexSet()[indexVertex]->getInfo());
+	id = vertexes[indexVertex]->getInfo().getId();
+	graph.dijkstraShortestPath(vertexes[indexVertex]->getInfo());
 
 	int pos;
 	int distance = INT_INFINITY;
@@ -73,6 +76,7 @@ void RandomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
 					distance = graph.getVertex(vehicles[i].getInfo())->getDist();
 				}
 			}
+            cout << "O carro da Policia ira percorrer a distancia minima de " << distance <<" metros" <<" ate ao vertice Azul\n";
 			break;
 		case 2:
 			gv->setVertexColor(id, RED);
@@ -82,6 +86,7 @@ void RandomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
 					distance = graph.getVertex(vehicles[i].getInfo())->getDist();
 				}
 			}
+            cout << "O Camiao dos Bombeiros ira percorrer a distancia minima de " << distance <<" metros" <<" ate ao incendio (vertice vermelho)\n";
 			break;
 		case 3:
 			gv->setVertexColor(id, YELLOW);
@@ -91,6 +96,7 @@ void RandomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
 					distance = graph.getVertex(vehicles[i].getInfo())->getDist();
 				}
 			}
+            cout << "A Mota do INEM ira percorrer a distancia minima de " << distance <<" metros" <<" ate a emergencia de baixa gravidade\n";
 			break;
 		case 4:
 			gv->setVertexColor(id, ORANGE);
@@ -100,7 +106,8 @@ void RandomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
 					distance = graph.getVertex(vehicles[i].getInfo())->getDist();
 				}
 			}
-			break;
+            cout << "A Carrinha INEM ira percorrer a distancia minima de " << distance <<" metros" <<" ate a emergencia de moderada gravidade\n";
+            break;
 		case 5:
 			gv->setVertexColor(id, BLACK);
 			for (size_t i = 0; i < vehicles.size(); i++) {
@@ -109,6 +116,7 @@ void RandomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
 					distance = graph.getVertex(vehicles[i].getInfo())->getDist();
 				}
 			}
+            cout << "A Ambulancia ira percorrer a distancia minima de " << distance <<" metros" <<" ate a emergencia de elevada gravidade\n";
 			break;
 	}
 
@@ -119,5 +127,37 @@ void RandomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
 		way.push_back(currentNode.getId());
 	}while(currentNode.getId() != id);
 	vehicles[pos].setWay(way);
+
+    followPath(graph, gv, vehicles[pos]);
 	vehicles[pos].setBusy(true);
+}
+
+
+void followPath(Graph<NodeInformation> & graph, GraphViewer *gv, Vehicle &vehicle){
+   vector<int> pathIDs = vehicle.getWay();
+	string iconPth = iconPath(vehicle.getType());
+
+
+    for (int i = 0; i < pathIDs.size()-1; i++)
+    {
+		this_thread::sleep_for(chrono::seconds(3));
+        gv->clearVertexIcon(pathIDs[i]);
+		gv->setVertexIcon(pathIDs[i+1], iconPth);
+		vehicle.setInfo(graph.getVertex(NodeInformation(pathIDs[i+1], 1,1))->getInfo());
+    }
+}
+
+string iconPath(const string &vehicleType){
+	if(vehicleType == "Ambulance")
+		return "ambulance.png";
+	if(vehicleType == "Van")
+		return  "van.png";
+	if(vehicleType == "Motorcycle")
+		return "motocycle.png";
+	if(vehicleType == "Policecar")
+		return "police.png";
+	if(vehicleType == "Firetruck")
+		return "firemen.png";
+
+	return "";
 }

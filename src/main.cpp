@@ -52,18 +52,19 @@ int main () {
         /*Menu*/
         cout << "\nSistema de Gestao de Emergencias\n\n";
         cout << "1. Gerar Emergencia aleatoria\n";
-        cout << "2. Mostrar unidades disponiveis\n";
+        //cout << "2. Mostrar unidades disponiveis\n";
+        cout << "0. Terminar programa\n";
         cout <<"Insira uma das opcoes: ";
 
         readInt(choice);
 
         switch (choice){
             case 1:
-                //randomEmergency();
+                randomEmergency(graph, gv, vehicles);
                 break;
-            case 2:
-                //showAvaiableUnits();
-                break;
+//            case 2:
+//                //showAvaiableUnits();
+//                break;
             case 0:
                 return 0;
             default:

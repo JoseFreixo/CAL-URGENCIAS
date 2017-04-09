@@ -203,6 +203,9 @@ bool FileReading::readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv
         if(nodeType != ""){
             gv->setVertexLabel(idNo, nodeType);
         }
+        else
+            gv->setVertexLabel(idNo, to_string(idNo));
+
 		NodeInformation info(idNo, y, x, nodeType);
 		graph.addVertex(info);
 	}
