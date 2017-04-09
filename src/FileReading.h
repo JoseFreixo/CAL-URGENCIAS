@@ -23,7 +23,7 @@ private:
 public:
 	static bool readNodesInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string fileName);
 	static bool readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string fileInfo, string fileGeometry);
-	static bool readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string nodes, string roads, string connections);
+	static bool readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv, vector<NodeInformation> &buildings, string nodes, string roads, string connections);
 };
 
 bool FileReading::readNodesInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string fileName){
@@ -172,7 +172,7 @@ bool FileReading::readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 	return true;
 }
 
-bool FileReading::readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string nodes, string roads, string connections){
+bool FileReading::readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv, vector<NodeInformation> &buildings, string nodes, string roads, string connections){
 	ifstream inFile;
 	inFile.open(nodes);
 
@@ -200,13 +200,15 @@ bool FileReading::readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv
         getline(linestream, nodeType, ';');
 
 		gv->addNode(idNo, x, y);
+        NodeInformation info(idNo, y, x, nodeType);
         if(nodeType != ""){
             gv->setVertexLabel(idNo, nodeType);
+            buildings.push_back(info);
         }
         else
             gv->setVertexLabel(idNo, to_string(idNo));
 
-		NodeInformation info(idNo, y, x, nodeType);
+
 		graph.addVertex(info);
 	}
 

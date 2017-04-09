@@ -30,11 +30,12 @@ void readInt(int &n){
 int main () {
 
 	Graph<NodeInformation> graph;
+    vector<NodeInformation> buildings;
 
     GraphViewer* gv = new GraphViewer(MapCoordinates::windowWidth, MapCoordinates::windowHeight, false);
     gv->createWindow(MapCoordinates::windowWidth, MapCoordinates::windowHeight);
 
-    FileReading::readSimpleInfo(graph, gv, "FileNodes.txt", "FileRoads.txt", "FileConection.txt");
+    FileReading::readSimpleInfo(graph, gv, buildings, "FileNodes.txt", "FileRoads.txt", "FileConection.txt");
 
     vector<Vehicle> vehicles = generateVehicles(graph, gv);
 
