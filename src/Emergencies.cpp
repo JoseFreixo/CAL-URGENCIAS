@@ -62,7 +62,7 @@ void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
 
 	unsigned int id;
 	id = vertexes[indexVertex]->getInfo().getId();
-	graph.dijkstraShortestPath(vertexes[indexVertex]->getInfo());
+	//graph.dijkstraShortestPath(vertexes[indexVertex]->getInfo());
 
 	int pos;
 	int distance = INT_INFINITY;
@@ -71,65 +71,123 @@ void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
 		case 1:
 			gv->setVertexColor(id, BLUE);
 			for (size_t i = 0; i < vehicles.size(); i++){
-				if (vehicles[i].getType() == "Policecar" && !(vehicles[i].getBusy()) && graph.getVertex(vehicles[i].getInfo())->getDist() < distance){
-					pos = i;
-					distance = graph.getVertex(vehicles[i].getInfo())->getDist();
+				if (vehicles[i].getType() == "Policecar" && !(vehicles[i].getBusy())) {
+					graph.dijkstraShortestPath(vehicles[i].getInfo());
+					if (graph.getVertex(vertexes[indexVertex]->getInfo())->getDist() < distance){
+						pos = i;
+						distance = graph.getVertex(vertexes[indexVertex]->getInfo())->getDist();
+
+						NodeInformation currentNode = vertexes[indexVertex]->getInfo();
+						vector<int> way;
+						do{
+							way.insert(way.begin(), currentNode.getId());
+							currentNode = ((graph.getVertex(currentNode))->path)->getInfo();
+						}while(currentNode.getId() != vehicles[i].getInfo().getId());
+
+						vehicles[pos].setWay(way);
+					}
 				}
 			}
-            cout << "O carro da Policia ira percorrer a distancia minima de " << distance <<" metros" <<" ate ao vertice Azul\n";
+            cout << "O carro da Policia ira percorrer a distancia minima de " << distance << " metros ate ao vertice Azul\n";
 			break;
 		case 2:
 			gv->setVertexColor(id, RED);
 			for (size_t i = 0; i < vehicles.size(); i++){
-				if (vehicles[i].getType() == "Firetruck" && !(vehicles[i].getBusy()) && graph.getVertex(vehicles[i].getInfo())->getDist() < distance){
-					pos = i;
-					distance = graph.getVertex(vehicles[i].getInfo())->getDist();
+				if (vehicles[i].getType() == "Firetruck" && !(vehicles[i].getBusy())) {
+					graph.dijkstraShortestPath(vehicles[i].getInfo());
+					if (graph.getVertex(vertexes[indexVertex]->getInfo())->getDist() < distance) {
+						pos = i;
+						distance = graph.getVertex(vertexes[indexVertex]->getInfo())->getDist();
+
+						NodeInformation currentNode = vertexes[indexVertex]->getInfo();
+						vector<int> way;
+						do {
+							way.insert(way.begin(), currentNode.getId());
+							currentNode = ((graph.getVertex(currentNode))->path)->getInfo();
+						} while (currentNode.getId() != vehicles[i].getInfo().getId());
+
+						vehicles[pos].setWay(way);
+					}
 				}
 			}
-            cout << "O Camiao dos Bombeiros ira percorrer a distancia minima de " << distance <<" metros" <<" ate ao incendio (vertice vermelho)\n";
+            cout << "O Camiao dos Bombeiros ira percorrer a distancia minima de " << distance << " metros ate ao incendio (vertice vermelho)\n";
 			break;
 		case 3:
 			gv->setVertexColor(id, YELLOW);
 			for (size_t i = 0; i < vehicles.size(); i++){
-				if (vehicles[i].getType() == "Motorcycle" && !(vehicles[i].getBusy()) && graph.getVertex(vehicles[i].getInfo())->getDist() < distance){
-					pos = i;
-					distance = graph.getVertex(vehicles[i].getInfo())->getDist();
+				if (vehicles[i].getType() == "Motorcycle" && !(vehicles[i].getBusy())) {
+					graph.dijkstraShortestPath(vehicles[i].getInfo());
+					if (graph.getVertex(vertexes[indexVertex]->getInfo())->getDist() < distance) {
+						pos = i;
+						distance = graph.getVertex(vertexes[indexVertex]->getInfo())->getDist();
+
+						NodeInformation currentNode = vertexes[indexVertex]->getInfo();
+						vector<int> way;
+						do {
+							way.insert(way.begin(), currentNode.getId());
+							currentNode = ((graph.getVertex(currentNode))->path)->getInfo();
+						} while (currentNode.getId() != vehicles[i].getInfo().getId());
+
+						vehicles[pos].setWay(way);
+					}
 				}
 			}
-            cout << "A Mota do INEM ira percorrer a distancia minima de " << distance <<" metros" <<" ate a emergencia de baixa gravidade\n";
+            cout << "A Mota do INEM ira percorrer a distancia minima de " << distance << " metros ate a emergencia de baixa gravidade\n";
 			break;
 		case 4:
 			gv->setVertexColor(id, ORANGE);
 			for (size_t i = 0; i < vehicles.size(); i++){
-				if (vehicles[i].getType() == "Van" && !(vehicles[i].getBusy()) && graph.getVertex(vehicles[i].getInfo())->getDist() < distance){
-					pos = i;
-					distance = graph.getVertex(vehicles[i].getInfo())->getDist();
+				if (vehicles[i].getType() == "Van" && !(vehicles[i].getBusy())) {
+					graph.dijkstraShortestPath(vehicles[i].getInfo());
+					if (graph.getVertex(vertexes[indexVertex]->getInfo())->getDist() < distance) {
+						pos = i;
+						distance = graph.getVertex(vertexes[indexVertex]->getInfo())->getDist();
+
+						NodeInformation currentNode = vertexes[indexVertex]->getInfo();
+						vector<int> way;
+						do {
+							way.insert(way.begin(), currentNode.getId());
+							currentNode = ((graph.getVertex(currentNode))->path)->getInfo();
+						} while (currentNode.getId() != vehicles[i].getInfo().getId());
+
+						vehicles[pos].setWay(way);
+					}
 				}
 			}
-            cout << "A Carrinha INEM ira percorrer a distancia minima de " << distance <<" metros" <<" ate a emergencia de moderada gravidade\n";
+            cout << "A Carrinha INEM ira percorrer a distancia minima de " << distance << " metros ate a emergencia de moderada gravidade\n";
             break;
 		case 5:
 			gv->setVertexColor(id, BLACK);
 			for (size_t i = 0; i < vehicles.size(); i++) {
-				if (vehicles[i].getType() == "Ambulance" && !(vehicles[i].getBusy()) && graph.getVertex(vehicles[i].getInfo())->getDist() < distance) {
-					pos = i;
-					distance = graph.getVertex(vehicles[i].getInfo())->getDist();
+				if (vehicles[i].getType() == "Ambulance" && !(vehicles[i].getBusy())) {
+					graph.dijkstraShortestPath(vehicles[i].getInfo());
+					if (graph.getVertex(vertexes[indexVertex]->getInfo())->getDist() < distance) {
+						pos = i;
+						distance = graph.getVertex(vertexes[indexVertex]->getInfo())->getDist();
+
+						NodeInformation currentNode = vertexes[indexVertex]->getInfo();
+						vector<int> way;
+						do {
+							way.insert(way.begin(), currentNode.getId());
+							currentNode = ((graph.getVertex(currentNode))->path)->getInfo();
+						} while (currentNode.getId() != vehicles[i].getInfo().getId());
+
+						vehicles[pos].setWay(way);
+					}
 				}
 			}
-            cout << "A Ambulancia ira percorrer a distancia minima de " << distance <<" metros" <<" ate a emergencia de elevada gravidade\n";
+            cout << "A Ambulancia ira percorrer a distancia minima de " << distance <<" metros ate a emergencia de elevada gravidade\n";
 			break;
 	}
 
-	NodeInformation currentNode = vehicles[pos].getInfo();
-	vector<int> way;
-	do{
-		currentNode = ((graph.getVertex(currentNode))->path)->getInfo();
-		way.push_back(currentNode.getId());
-	}while(currentNode.getId() != id);
-	vehicles[pos].setWay(way);
+	if (distance == INT_INFINITY){
+		cout << "Nao ha veiculos adequados disponiveis.";
+		return;
+	}
 
-    followPath(graph, gv, vehicles[pos]);
 	vehicles[pos].setBusy(true);
+    followPath(graph, gv, vehicles[pos]);
+
 }
 
 
@@ -138,12 +196,13 @@ void followPath(Graph<NodeInformation> & graph, GraphViewer *gv, Vehicle &vehicl
 	string iconPth = iconPath(vehicle.getType());
 
 
-    for (int i = 0; i < pathIDs.size()-1; i++)
+    for (size_t i = 0; i < pathIDs.size(); i++)
     {
 		this_thread::sleep_for(chrono::seconds(3));
-        gv->clearVertexIcon(pathIDs[i]);
-		gv->setVertexIcon(pathIDs[i+1], iconPth);
-		vehicle.setInfo(graph.getVertex(NodeInformation(pathIDs[i+1], 1,1))->getInfo());
+        gv->clearVertexIcon(vehicle.getInfo().getId());
+		gv->setVertexIcon(pathIDs[i], iconPth);
+		vehicle.setInfo(graph.getVertex(NodeInformation(pathIDs[i], 1,1))->getInfo());
+		gv->rearrange();
     }
 }
 
