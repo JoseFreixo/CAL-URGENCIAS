@@ -12,7 +12,7 @@
 
 vector<Vehicle> generateVehicles(const Graph<NodeInformation> & graph, GraphViewer *gv);
 
-void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Vehicle> vehicles, const vector<NodeInformation> &buildings);
+void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Vehicle> & vehicles, const vector<NodeInformation> &buildings);
 
 void followPath(const Graph<NodeInformation> & graph, GraphViewer *gv, Vehicle &vehicle);
 
