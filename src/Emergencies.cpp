@@ -209,15 +209,18 @@ void followPath(const Graph<NodeInformation> & graph, GraphViewer *gv, Vehicle &
 
 void getPathToEmergencyCentre(Graph<NodeInformation> & graph, int emergencyType, const vector<NodeInformation> & buildings, Vehicle & vehicle){
 	int distance = INT_INFINITY;
+	int distBuilding = 0;
+
 	switch(emergencyType){
 	case 1:
 		for (size_t i = 0; i < buildings.size(); i++){
 			if (buildings[i].getType() == "Police Department"){
 				graph.dijkstraShortestPath(graph.getVertex(vehicle.getInfo())->getInfo());
-				if (graph.getVertex(vehicle.getInfo())->getDist() < distance){
-					distance = graph.getVertex(vehicle.getInfo())->getDist();
+				distBuilding = graph.getVertex(buildings[i])->getDist();
+				if (distBuilding < distance){
+					distance = distBuilding;
 
-					NodeInformation currentNode = graph.getVertex(buildings[i])->getInfo();
+					NodeInformation currentNode = buildings[i];
 					vector<int> way;
 					do {
 						way.insert(way.begin(), currentNode.getId());
@@ -233,10 +236,11 @@ void getPathToEmergencyCentre(Graph<NodeInformation> & graph, int emergencyType,
 		for (size_t i = 0; i < buildings.size(); i++){
 			if (buildings[i].getType() == "Fire Department"){
 				graph.dijkstraShortestPath(graph.getVertex(vehicle.getInfo())->getInfo());
-				if (graph.getVertex(vehicle.getInfo())->getDist() < distance){
-					distance = graph.getVertex(vehicle.getInfo())->getDist();
+				distBuilding = graph.getVertex(buildings[i])->getDist();
+				if (distBuilding < distance){
+					distance = distBuilding;
 
-					NodeInformation currentNode = graph.getVertex(buildings[i])->getInfo();
+					NodeInformation currentNode = buildings[i];
 					vector<int> way;
 					do {
 						way.insert(way.begin(), currentNode.getId());
@@ -252,10 +256,11 @@ void getPathToEmergencyCentre(Graph<NodeInformation> & graph, int emergencyType,
 		for (size_t i = 0; i < buildings.size(); i++){
 			if (buildings[i].getType() == "Hospital"){
 				graph.dijkstraShortestPath(graph.getVertex(vehicle.getInfo())->getInfo());
-				if (graph.getVertex(vehicle.getInfo())->getDist() < distance){
-					distance = graph.getVertex(vehicle.getInfo())->getDist();
+				distBuilding = graph.getVertex(buildings[i])->getDist();
+				if (distBuilding < distance){
+					distance = distBuilding;
 
-					NodeInformation currentNode = graph.getVertex(buildings[i])->getInfo();
+					NodeInformation currentNode = buildings[i];
 					vector<int> way;
 					do {
 						way.insert(way.begin(), currentNode.getId());
@@ -268,6 +273,7 @@ void getPathToEmergencyCentre(Graph<NodeInformation> & graph, int emergencyType,
 		}
 		break;
 	}
+	cout << "O/A " << vehicle.getType() << " ira percorrer " <<distance <<" metros, ate ao centro de emergencias\n";
 }
 
 string iconPath(const string &vehicleType){
