@@ -190,6 +190,33 @@ void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
     cout << "Emergencia resolvida!\n";
 }
 
+void testEmergency(Graph<NodeInformation> & graph){
+	int emergencyVertex;
+	vector<Vertex<NodeInformation>*> vertexes = graph.getVertexSet();
+	ofstream algorithmTimes("algorithmTimes.txt");
+
+	if(!algorithmTimes.is_open())
+		cout << "Nao e possivel abrir/criar o ficheiro de tempos dos algoritmos\n";
+
+	do{
+		emergencyVertex = rand() % graph.getNumVertex();
+	} while(vertexes[emergencyVertex]->getInfo().getType() != "");
+
+
+	chrono::time_point<chrono::system_clock> n1, n2, n3, n4;
+	n1 = chrono::system_clock::now();
+	graph.floydWarshallShortestPath();
+	n2 = chrono::system_clock::now();
+	graph.bellmanFordShortestPath(vertexes[emergencyVertex]->getInfo());
+	n3 = chrono::system_clock::now();
+	graph.dijkstraShortestPath(vertexes[emergencyVertex]->getInfo());
+	n4 = chrono::system_clock::now();
+	chrono::duration<double> t1 = n2 - n1, t2 = n3 - n2, t3 = n4 - n3;
+	algorithmTimes << "--------TIMES IN SECONDS-----------\n";
+	algorithmTimes <<"BellmanFord: "<< t2.count() << ", " <<"Dijkstra: "  << t3.count() << ", " << "FloydWarshall " << t1.count() << endl;
+
+}
+
 
 void followPath(const Graph<NodeInformation> & graph, GraphViewer *gv, Vehicle &vehicle){
    vector<int> pathIDs = vehicle.getWay();

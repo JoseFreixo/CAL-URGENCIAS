@@ -6,13 +6,16 @@
 #include "NodeInformation.h"
 #include "graphviewer.h"
 #include "Vehicle.h"
-#include <time.h>
+#include <ctime>
 #include <thread>
 #include <chrono>
+#include <fstream>
 
 vector<Vehicle> generateVehicles(const Graph<NodeInformation> & graph, GraphViewer *gv);
 
 void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Vehicle> & vehicles, const vector<NodeInformation> &buildings);
+
+void testEmergency(Graph<NodeInformation> & graph);
 
 void followPath(const Graph<NodeInformation> & graph, GraphViewer *gv, Vehicle &vehicle);
 
