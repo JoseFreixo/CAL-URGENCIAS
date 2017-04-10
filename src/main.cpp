@@ -53,7 +53,7 @@ int main () {
         /*Menu*/
         cout << "\nSistema de Gestao de Emergencias\n\n";
         cout << "1. Gerar Emergencia aleatoria\n";
-        //cout << "2. Mostrar unidades disponiveis\n";
+        cout << "2. Testar Algoritmos\n";
         cout << "0. Terminar programa\n";
         cout <<"Insira uma das opcoes: ";
 
@@ -63,9 +63,10 @@ int main () {
             case 1:
                 randomEmergency(graph, gv, vehicles, buildings);
                 break;
-//            case 2:
-//                //showAvaiableUnits();
-//                break;
+            case 2:
+                testEmergency(graph);
+                cout <<"O resultados foram escritos para um ficheiro\n";
+                break;
             case 0:
                 return 0;
             default:
