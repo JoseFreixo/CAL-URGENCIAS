@@ -202,7 +202,7 @@ void testEmergency(Graph<NodeInformation> & graph, ofstream & algorithmResults){
 	} while(vertexes[emergencyVertex]->getInfo().getType() != "");
 
 
-	chrono::time_point<chrono::high_resolution_clock> n1, n2, n3, n4;
+	chrono::time_point<chrono::high_resolution_clock > n1, n2, n3, n4;
 	n1 = chrono::high_resolution_clock::now();
 	graph.floydWarshallShortestPath();
 	n2 = chrono::high_resolution_clock::now();
@@ -210,8 +210,8 @@ void testEmergency(Graph<NodeInformation> & graph, ofstream & algorithmResults){
 	n3 = chrono::high_resolution_clock::now();
 	graph.dijkstraShortestPath(vertexes[emergencyVertex]->getInfo());
 	n4 = chrono::high_resolution_clock::now();
-	auto t1 = n2 - n1, t2 = n3 - n2, t3 = n4 - n3;
-	algorithmResults << t2.count() << "," << t3.count() << "," << t1.count() << endl;
+	chrono::high_resolution_clock::duration t1 = n2 - n1, t2 = n3 - n2, t3 = n4 - n3;
+	algorithmResults << chrono::duration_cast<chrono::nanoseconds>(t2).count() << "," << chrono::duration_cast<chrono::nanoseconds>(t3).count() << "," << chrono::duration_cast<chrono::nanoseconds>(t1).count() << endl;
 
 }
 
@@ -319,16 +319,16 @@ void testGraphConectivity(const Graph<NodeInformation> & graph){
 	/*vector<NodeInformation> nodesInfo;
 	nodesInfo = graph.dfs();
 	if ((int)nodesInfo.size() == graph.getNumVertex()){
-		cout << "\nO grafo é conexo.\n";
+		cout << "\nO grafo ï¿½ conexo.\n";
 	}
 	else{
-		cout << "O grafo não é conexo.\n";
+		cout << "O grafo nï¿½o ï¿½ conexo.\n";
 	}*/
 	vector<Vertex<NodeInformation>* > vx = graph.getVertexSet();
 	for (int i = 0; i < vx.size(); i++)
 		if ((int)graph.dfsTest(vx[i]).size() != graph.getNumVertex()){
-			cout << "O grafo não é conexo.\n";
+			cout << "O grafo nï¿½o ï¿½ conexo.\n";
 			return;
 		}
-	cout << "\nO grafo é conexo.\n";
+	cout << "\nO grafo ï¿½ conexo.\n";
 }
