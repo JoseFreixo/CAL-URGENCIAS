@@ -211,7 +211,7 @@ void testEmergency(Graph<NodeInformation> & graph, ofstream & algorithmResults){
 	graph.dijkstraShortestPath(vertexes[emergencyVertex]->getInfo());
 	n4 = chrono::high_resolution_clock::now();
 	auto t1 = n2 - n1, t2 = n3 - n2, t3 = n4 - n3;
-	algorithmResults <<"BellmanFord: "<< t2.count() << " ms, " <<"Dijkstra: "  << t3.count() << " ms, " << "FloydWarshall " << t1.count() << " ms" << endl;
+	algorithmResults << t2.count() << "," << t3.count() << "," << t1.count() << endl;
 
 }
 
