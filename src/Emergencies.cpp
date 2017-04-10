@@ -316,12 +316,19 @@ string iconPath(const string &vehicleType){
 }
 
 void testGraphConectivity(const Graph<NodeInformation> & graph){
-	vector<NodeInformation> nodesInfo;
+	/*vector<NodeInformation> nodesInfo;
 	nodesInfo = graph.dfs();
 	if ((int)nodesInfo.size() == graph.getNumVertex()){
 		cout << "\nO grafo é conexo.\n";
 	}
 	else{
 		cout << "O grafo não é conexo.\n";
-	}
+	}*/
+	vector<Vertex<NodeInformation>* > vx = graph.getVertexSet();
+	for (int i = 0; i < vx.size(); i++)
+		if ((int)graph.dfsTest(vx[i]).size() != graph.getNumVertex()){
+			cout << "O grafo não é conexo.\n";
+			return;
+		}
+	cout << "\nO grafo é conexo.\n";
 }

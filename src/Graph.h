@@ -166,6 +166,7 @@ public:
 	bool removeVertex(const T &in);
 	bool removeEdge(const T &sourc, const T &dest);
 	vector<T> dfs() const;
+	vector <T> dfsTest(Vertex<T> *v) const;
 	vector<T> bfs(Vertex<T> *v) const;
 	int maxNewChildren(Vertex<T> *v, T &inf) const;
 	vector<Vertex<T> * > getVertexSet() const;
@@ -304,6 +305,17 @@ vector<T> Graph<T>::dfs() const {
 	for (; it !=ite; it++)
 	    if ( (*it)->visited==false )
 	    	dfs(*it,res);
+	return res;
+}
+
+template <class T>
+vector<T> Graph<T>::dfsTest(Vertex<T> *v) const {
+	typename vector<Vertex<T>*>::const_iterator it= vertexSet.begin();
+	typename vector<Vertex<T>*>::const_iterator ite= vertexSet.end();
+	for (; it !=ite; it++)
+		(*it)->visited=false;
+	vector<T> res;
+	dfs(v,res);
 	return res;
 }
 
