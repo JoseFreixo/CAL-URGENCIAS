@@ -21,12 +21,12 @@ using namespace std;
 class FileReading {
 private:
 public:
-	static bool readNodesInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string fileName);
+	static bool readNodesInfo(Graph<NodeInformation> & graph, GraphViewer *gv, vector<NodeInformation> &buildings, string fileName, string file);
 	static bool readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string fileInfo, string fileGeometry);
 	static bool readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv, vector<NodeInformation> &buildings, string nodes, string roads, string connections);
 };
 
-bool FileReading::readNodesInfo(Graph<NodeInformation> & graph, GraphViewer *gv, string fileName){
+bool FileReading::readNodesInfo(Graph<NodeInformation> & graph, GraphViewer *gv, vector<NodeInformation> &buildings, string fileName, string file){
 	ifstream inFile;
 
 	//Ler o ficheiro Nodes.txt
@@ -37,7 +37,9 @@ bool FileReading::readNodesInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 		return false;
 	}
 
-	string line;
+	gv->setBackground(file + ".png");
+
+	string line, nodeType;
 	unsigned long long idNo = 0;
 	long double longDeg = 0, latDeg = 0;
 
@@ -53,6 +55,10 @@ bool FileReading::readNodesInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 		linestream >> latDeg;
 		getline(linestream, data, ';');
 		linestream >> longDeg;
+		getline(linestream, data, ';');
+		getline(linestream, data, ';');
+		getline(linestream, data, ';');
+		getline(linestream, nodeType, ';');
 
 		if (latDeg > MapCoordinates::maxLat || latDeg < MapCoordinates::minLat || longDeg > MapCoordinates::maxLong || longDeg < MapCoordinates::minLong)
 			continue;
@@ -70,11 +76,15 @@ bool FileReading::readNodesInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 		gv->addNode(idTemp, width, height);
 		//gv->setVertexLabel(idTemp, " ");
 
+		if(nodeType != ""){
+	        NodeInformation info(idTemp, latDeg, longDeg, nodeType);
+			gv->setVertexLabel(idTemp, nodeType);
+		    buildings.push_back(info);
+		}
+
 		NodeInformation nInfo(idTemp, latDeg, longDeg);
 
 		graph.addVertex(nInfo);
-
-        cout << "idNo (grafo) " << idNo << "  Gv id" << idTemp;
 	}
 
 	inFile.close();
@@ -173,6 +183,7 @@ bool FileReading::readRoadsInfo(Graph<NodeInformation> & graph, GraphViewer *gv,
 }
 
 bool FileReading::readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv, vector<NodeInformation> &buildings, string nodes, string roads, string connections){
+
 	ifstream inFile;
 	inFile.open(nodes);
 
@@ -205,9 +216,6 @@ bool FileReading::readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv
             gv->setVertexLabel(idNo, nodeType);
             buildings.push_back(info);
         }
-        else
-            gv->setVertexLabel(idNo, to_string(idNo));
-
 
 		graph.addVertex(info);
 	}
