@@ -15,12 +15,14 @@ vector<Vehicle> generateVehicles(const Graph<NodeInformation> & graph, GraphView
 
 void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Vehicle> & vehicles, const vector<NodeInformation> &buildings);
 
-void testEmergency(Graph<NodeInformation> & graph);
+void testEmergency(Graph<NodeInformation> & graph, ofstream & algorithmResults);
 
 void followPath(const Graph<NodeInformation> & graph, GraphViewer *gv, Vehicle &vehicle);
 
 void getPathToEmergencyCentre(Graph<NodeInformation> & graph, int emergencyType, const vector<NodeInformation> & buildings, Vehicle & vehicle);
 
 string iconPath(const string &vehicleType);
+
+void testGraphConectivity(const Graph<NodeInformation> & graph);
 
 #endif

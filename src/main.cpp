@@ -51,7 +51,7 @@ int main () {
 	fileSR.close();
 
 	ofstream algorithmResults;
-	algorithmResults.open(filename + "AlgorithmResults.txt");
+	algorithmResults.open(filename + "AlgorithmResults.txt", ofstream::out | ofstream::app);
 
 	Graph<NodeInformation> graph;
     vector<NodeInformation> buildings;
@@ -81,6 +81,7 @@ int main () {
         cout << "\nSistema de Gestao de Emergencias\n\n";
         cout << "1. Gerar Emergencia aleatoria\n";
         cout << "2. Testar Algoritmos\n";
+        cout << "3. Testar Conetividade\n";
         cout << "0. Terminar programa\n";
         cout <<"Insira uma das opcoes: ";
 
@@ -91,9 +92,12 @@ int main () {
                 randomEmergency(graph, gv, vehicles, buildings);
                 break;
             case 2:
-                testEmergency(graph);
-                cout <<"O resultados foram escritos para um ficheiro\n";
+                testEmergency(graph, algorithmResults);
+                cout << "Os resultados foram escritos para um ficheiro\n";
                 break;
+            case 3:
+            	testGraphConectivity(graph);
+            	break;
             case 0:
             	algorithmResults.close();
                 return 0;

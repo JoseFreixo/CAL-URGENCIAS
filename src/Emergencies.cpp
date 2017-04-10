@@ -190,12 +190,11 @@ void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
     cout << "Emergencia resolvida!\n";
 }
 
-void testEmergency(Graph<NodeInformation> & graph){
+void testEmergency(Graph<NodeInformation> & graph, ofstream & algorithmResults){
 	int emergencyVertex;
 	vector<Vertex<NodeInformation>*> vertexes = graph.getVertexSet();
-	ofstream algorithmTimes("algorithmTimes.txt");
 
-	if(!algorithmTimes.is_open())
+	if(!algorithmResults.is_open())
 		cout << "Nao e possivel abrir/criar o ficheiro de tempos dos algoritmos\n";
 
 	do{
@@ -203,17 +202,16 @@ void testEmergency(Graph<NodeInformation> & graph){
 	} while(vertexes[emergencyVertex]->getInfo().getType() != "");
 
 
-	chrono::time_point<chrono::system_clock> n1, n2, n3, n4;
-	n1 = chrono::system_clock::now();
+	chrono::time_point<chrono::high_resolution_clock> n1, n2, n3, n4;
+	n1 = chrono::high_resolution_clock::now();
 	graph.floydWarshallShortestPath();
-	n2 = chrono::system_clock::now();
+	n2 = chrono::high_resolution_clock::now();
 	graph.bellmanFordShortestPath(vertexes[emergencyVertex]->getInfo());
-	n3 = chrono::system_clock::now();
+	n3 = chrono::high_resolution_clock::now();
 	graph.dijkstraShortestPath(vertexes[emergencyVertex]->getInfo());
-	n4 = chrono::system_clock::now();
-	chrono::duration<double> t1 = n2 - n1, t2 = n3 - n2, t3 = n4 - n3;
-	algorithmTimes << "--------TIMES IN SECONDS-----------\n";
-	algorithmTimes <<"BellmanFord: "<< t2.count() << ", " <<"Dijkstra: "  << t3.count() << ", " << "FloydWarshall " << t1.count() << endl;
+	n4 = chrono::high_resolution_clock::now();
+	auto t1 = n2 - n1, t2 = n3 - n2, t3 = n4 - n3;
+	algorithmResults <<"BellmanFord: "<< t2.count() << " ms, " <<"Dijkstra: "  << t3.count() << " ms, " << "FloydWarshall " << t1.count() << " ms" << endl;
 
 }
 
@@ -315,4 +313,15 @@ string iconPath(const string &vehicleType){
 		return "firemen.png";
 
 	return "";
+}
+
+void testGraphConectivity(const Graph<NodeInformation> & graph){
+	vector<NodeInformation> nodesInfo;
+	nodesInfo = graph.dfs();
+	if ((int)nodesInfo.size() == graph.getNumVertex()){
+		cout << "\nO grafo é conexo.\n";
+	}
+	else{
+		cout << "O grafo não é conexo.\n";
+	}
 }
