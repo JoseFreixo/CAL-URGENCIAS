@@ -1,66 +1,66 @@
-1;;False
-2;;False
-3;;False
-4;;False
-5;;True
-6;;True
-7;;False
-8;;True
-9;;True
-10;;False
-11;;True
-12;;True
-13;;False
-14;;True
-15;;True
-16;;False
-17;;True
-18;;True
-19;;False
-20;;True
-21;;True
-22;;False
-23;;True
-24;;True
-25;;False
-26;;True
-27;;True
-28;;False
-29;;True
-30;;True
-31;;False
-32;;True
-33;;True
-34;;False
-35;;True
-36;;True
-37;;False
-38;;True
-39;;True
-40;;False
-41;;True
-42;;True
-43;;False
-44;;True
-45;;True
-46;;False
-47;;True
-48;;True
-49;;False
-50;;True
-51;;True
-52;;False
-53;;True
-54;;True
-55;;False
-56;;True
-57;;True
-58;;False
-59;;True
-60;;True
-61;;False
-62;;True
-63;;True
-64;;False
-65;;True
-66;;True
+1;Rua de Antonio Ribeiro;False
+2;Avenida do Becas;False
+3;Caminho da Corte;False
+4;Travessa do Diamantino;False
+5;Rua de Egas;True
+6;Avenida Freixo;True
+7;Caminho Guisado de Porco;False
+8;Travessa do Hospital Sao Joao;True
+9;Largo do Indiano;True
+10;Rua Josefina Aguiar;False
+11;Avenida Leixo;True
+12;Caminho Mousinho da Silveira;True
+13;Travessa Nelson Evora;False
+14;Largo Oscar Niemeyer;True
+15;Rua do Palacio de Cristal;True
+16;Avenida Quim Barreiros;False
+17;Caminho Ricardo Fonseca;True
+18;Travessa Super Bock;True
+19;Largo Timtim;False
+20;Rua Ubuntu Master Race;True
+21;Avenida Vasco da Gama;True
+22;Caminho Xaile da Avozinha;False
+23;Travessa do Ze Bino;True
+24;Largo do MingW;True
+25;Rua do Eclipse C++;False
+26;Estrada do Capitao Cuecas;True
+27;Avenida Ederzito;True
+28;Largo dos Campeoes Europeus;False
+29;Travessa dos Arrays em C;True
+30;Rua do Cute para C++;True
+31;Estrada do caminho mais curto;False
+32;Avenida dos ciclos infinitos;True
+33;Caminho de Pointers em Java;True
+34;Praca de memory leaks;False
+35;Travessa de Unhandled Exceptions;True
+36;Ponte da Fonte do Monte;True
+37;Largo Tino de Ras;False
+38;Rua Anibal Diamantino Asdrubal;True
+39;Estrada dos Gases;True
+40;Largo da Pontinha;False
+41;Avenida das Caldas;True
+42;Avenida Central;True
+43;Rua 31 de Janeiro;False
+44;Rua da Arvore;True
+45;Ria de Aveiro;True
+46;Rua 5 de Outubro;False
+47;Estrada Francisco Alvares de Nobrega;True
+48;Rua do Paraiso;True
+49;Avenida Carlos Alberto;False
+50;Estrada Salvador Sobral;True
+51;Avenida dos Aliados;True
+52;Rua de Aval de Cima;False
+53;Travessa do Dennis Ritchie;True
+54;Rua de Dijskstra;True
+55;Travessa das Votinhas;False
+56;Estrada de Richard Stallman;True
+57;Praca do Comercio;True
+58;Rua de Miura;False
+59;Estrada Alberto Joao Jardim;True
+60;Praceta 25 de Abril;True
+61;Caminho dos Combatentes;False
+62;Largo de Marcelo Rebolo de Sousa;True
+63;Rua Jose Manuel Coelho;True
+64;Rua do Pico;False
+65;Rua do Comboio;True
+66;Rua do Poco dos Louros;True
