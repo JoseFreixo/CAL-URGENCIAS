@@ -213,6 +213,27 @@ void testEmergency(Graph<NodeInformation> & graph, ofstream & algorithmResults){
 	auto t1 = n2 - n1, t2 = n3 - n2, t3 = n4 - n3;
 	algorithmResults << t2.count() << "," << t3.count() << "," << t1.count() << endl;
 
+	/*clock_t n1, n2, n3, n4;
+	n4 = clock();
+	graph.dijkstraShortestPath(vertexes[emergencyVertex]->getInfo());
+	n2 = clock();
+	graph.bellmanFordShortestPath(vertexes[emergencyVertex]->getInfo());
+	n1 = clock();
+	graph.floydWarshallShortestPath();
+	n3 = clock();
+	clock_t t1 = n2 - n4, t2 = n1 - n2, t3 = n3 - n1;
+	algorithmResults << 1000*((float)t2)/CLOCKS_PER_SEC << "," << 1000*((float)t3)/CLOCKS_PER_SEC << "," << 1000*((float)t1)/CLOCKS_PER_SEC << endl;*/
+
+	/*chrono::time_point<chrono::high_resolution_clock> n1, n2, n3, n4;
+		n4 = chrono::high_resolution_clock::now();
+		graph.dijkstraShortestPath(vertexes[emergencyVertex]->getInfo());
+		n2 = chrono::high_resolution_clock::now();
+		graph.bellmanFordShortestPath(vertexes[emergencyVertex]->getInfo());
+		n1 = chrono::high_resolution_clock::now();
+		graph.floydWarshallShortestPath();
+		n3 = chrono::high_resolution_clock::now();
+		auto t1 = n2 - n4, t2 = n1 - n2, t3 = n3 - n1;
+		algorithmResults << t2.count() << "," << t3.count() << "," << t1.count() << endl;*/
 }
 
 
