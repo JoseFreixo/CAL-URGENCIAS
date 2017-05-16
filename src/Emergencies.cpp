@@ -181,11 +181,11 @@ void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
 		cout << "Nao ha veiculos adequados disponiveis.\n";
 		return;
 	}
-	cout << "O/A "<< vehicles[pos].getType() <<" ira percorrer a distancia minima de " << distance <<" metros ate a emergencia!\n";
+	cout << "O/A "<< vehicles[pos].getType() <<" percorreu a distancia minima de " << distance <<" metros ate a emergencia!\n";
 	vehicles[pos].setBusy(true);
-    followPath(graph, gv, vehicles[pos]);
+    followPath(graph, gv, vehicles, pos);
     getPathToEmergencyCentre(graph, emergencyType, buildings, vehicles[pos]);
-    followPath(graph, gv, vehicles[pos]);
+    followPath(graph, gv, vehicles, pos);
     vehicles[pos].setBusy(false);
     cout << "Emergencia resolvida!\n";
 }
@@ -237,19 +237,22 @@ void testEmergency(Graph<NodeInformation> & graph, ofstream & algorithmResults){
 }
 
 
-void followPath(const Graph<NodeInformation> & graph, GraphViewer *gv, Vehicle &vehicle){
-   vector<int> pathIDs = vehicle.getWay();
-	string iconPth = iconPath(vehicle.getType());
+void followPath(const Graph<NodeInformation> & graph, GraphViewer *gv, vector<Vehicle> &vehicle, int pos){
+    vector<int> pathIDs = vehicle[pos].getWay();
+	string iconPth = iconPath(vehicle[pos].getType());
 
 
     for (size_t i = 0; i < pathIDs.size(); i++)
     {
 		this_thread::sleep_for(chrono::seconds(3));
-        gv->clearVertexIcon(vehicle.getInfo().getId());
+        gv->clearVertexIcon(vehicle[pos].getInfo().getId());
+        repaintVehicles(gv, vehicle, pos);
 		gv->setVertexIcon(pathIDs[i], iconPth);
-		vehicle.setInfo(graph.getVertex(NodeInformation(pathIDs[i], 1,1))->getInfo());
+		vehicle[pos].setInfo(graph.getVertex(NodeInformation(pathIDs[i], 1,1))->getInfo());
 		gv->rearrange();
     }
+    gv->setVertexColor(pathIDs[pathIDs.size() - 1], GREEN);
+    gv->rearrange();
 }
 
 void getPathToEmergencyCentre(Graph<NodeInformation> & graph, int emergencyType, const vector<NodeInformation> & buildings, Vehicle & vehicle){
@@ -318,7 +321,7 @@ void getPathToEmergencyCentre(Graph<NodeInformation> & graph, int emergencyType,
 		}
 		break;
 	}
-	cout << "O/A " << vehicle.getType() << " ira percorrer " <<distance <<" metros, ate ao centro de emergencias\n";
+	cout << "O/A " << vehicle.getType() << " percorreu " <<distance <<" metros, ate ao centro de emergencias\n";
 }
 
 string iconPath(const string &vehicleType){
@@ -337,19 +340,19 @@ string iconPath(const string &vehicleType){
 }
 
 void testGraphConectivity(const Graph<NodeInformation> & graph){
-	/*vector<NodeInformation> nodesInfo;
-	nodesInfo = graph.dfs();
-	if ((int)nodesInfo.size() == graph.getNumVertex()){
-		cout << "\nO grafo � conexo.\n";
-	}
-	else{
-		cout << "O grafo n�o � conexo.\n";
-	}*/
 	vector<Vertex<NodeInformation>* > vx = graph.getVertexSet();
-	for (int i = 0; i < vx.size(); i++)
+	for (size_t i = 0; i < vx.size(); i++)
 		if ((int)graph.dfsTest(vx[i]).size() != graph.getNumVertex()){
-			cout << "O grafo n�o � conexo.\n";
+			cout << "O grafo nao e conexo.\n";
 			return;
 		}
-	cout << "\nO grafo � conexo.\n";
+	cout << "\nO grafo e conexo.\n";
+}
+
+void repaintVehicles(GraphViewer *gv, vector<Vehicle> &vehicles, int pos){
+	for (size_t i = 0; i < vehicles.size(); i++){
+		if (i != pos){
+			gv->setVertexIcon(vehicles[i].getInfo().getId(), iconPath(vehicles[i].getType()));
+		}
+	}
 }
