@@ -37,3 +37,10 @@
 cmake-build-debug/
 CMakeLists.txt
 /Debug/
+
+#Log Files
+FileAlgorithmResults.txt
+
+#Eclipse Files
+.cproject
+.project
