@@ -22,9 +22,9 @@ void pre_kmp(string pattern, vector<int> & prefix)
 	}
 }
 
-int kmp(string text, string pattern)
+bool kmp(string text, string pattern)
 {
-	int num=0;
+	//int num=0;
 	int m=pattern.length();
 	vector<int> prefix(m);
 	pre_kmp(pattern, prefix);
@@ -38,12 +38,14 @@ int kmp(string text, string pattern)
 		if (pattern[q+1]==text[i])
 			q++;
 		if (q==m-1) {
-			cout <<"pattern occurs with shift" << i-m+1 << endl;
-			num++;
-			q=prefix[q];
+			//cout <<"pattern occurs with shift" << i-m+1 << endl;
+			//num++;
+			return true;
+			//q=prefix[q];
 		}
 	}
-	return num;
+	//return num;
+	return false;
 }
 
 

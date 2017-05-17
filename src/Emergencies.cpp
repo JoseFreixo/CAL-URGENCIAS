@@ -244,7 +244,7 @@ void followPath(const Graph<NodeInformation> & graph, GraphViewer *gv, vector<Ve
 
     for (size_t i = 0; i < pathIDs.size(); i++)
     {
-		this_thread::sleep_for(chrono::seconds(3));
+		this_thread::sleep_for(chrono::seconds(1));
         gv->clearVertexIcon(vehicle[pos].getInfo().getId());
         repaintVehicles(gv, vehicle, pos);
 		gv->setVertexIcon(pathIDs[i], iconPth);
