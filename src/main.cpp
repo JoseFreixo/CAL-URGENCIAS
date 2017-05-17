@@ -82,6 +82,7 @@ int main () {
         cout << "1. Gerar Emergencia aleatoria\n";
         cout << "2. Testar Algoritmos\n";
         cout << "3. Testar Conetividade\n";
+        cout << "4. Procurar recursos de emergencia\n";
         cout << "0. Terminar programa\n";
         cout <<"Insira uma das opcoes: ";
 
@@ -98,9 +99,20 @@ int main () {
             case 3:
             	testGraphConectivity(graph);
             	break;
+            case 4:
+            {
+            	string r1, r2;
+            	cout << "Insira nome da 1a rua: ";
+            	getline(cin, r1);
+            	cout << "Insira nome da 2a rua: ";
+            	getline(cin, r2);
+            	searchStreetVehicles(graph, r1, r2);
+            	break;
+            }
             case 0:
             	algorithmResults.close();
                 return 0;
+                break;
             default:
                 cout << "Opcao invalida, tente novamente...\n";
                 break;
