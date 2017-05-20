@@ -1,5 +1,8 @@
 #include "Emergencies.h"
 
+//Graph Viewer Mutex
+mutex gvMutex;
+
 vector<Vehicle> generateVehicles(const Graph<NodeInformation> & graph, GraphViewer *gv){
 	vector<Vehicle> vehicles;
     vector<Vertex<NodeInformation>*> vertexes = graph.getVertexSet();
@@ -13,39 +16,50 @@ vector<Vehicle> generateVehicles(const Graph<NodeInformation> & graph, GraphView
 	} while(vertexes[indexVertex]->getInfo().getType() != "");
 
 	Vehicle vehicle1("Ambulancia", vertexes[indexVertex]->getInfo(), false);
-	gv->setVertexIcon(vertexes[indexVertex]->getInfo().getId(), "ambulance.png");
-	vehicles.push_back(vehicle1);
+
+    gvMutex.lock();
+	    gv->setVertexIcon(vertexes[indexVertex]->getInfo().getId(), "ambulance.png");
+    gvMutex.unlock();
+    vehicles.push_back(vehicle1);
 
 	do{
 		indexVertex = rand() % graph.getNumVertex();
 	} while(vertexes[indexVertex]->getInfo().getType() != "");
 
 	Vehicle vehicle2("Carrinha", vertexes[indexVertex]->getInfo(), false);
-	gv->setVertexIcon(vertexes[indexVertex]->getInfo().getId(), "van.png");
-	vehicles.push_back(vehicle2);
+    gvMutex.lock();
+	    gv->setVertexIcon(vertexes[indexVertex]->getInfo().getId(), "van.png");
+    gvMutex.unlock();
+    vehicles.push_back(vehicle2);
 
 	do{
 		indexVertex = rand() % graph.getNumVertex();
 	} while(vertexes[indexVertex]->getInfo().getType() != "");
 
 	Vehicle vehicle3("Mota", vertexes[indexVertex]->getInfo(), false);
-	gv->setVertexIcon(vertexes[indexVertex]->getInfo().getId(), "motorcycle.png");
-	vehicles.push_back(vehicle3);
+    gvMutex.lock();
+	    gv->setVertexIcon(vertexes[indexVertex]->getInfo().getId(), "motorcycle.png");
+    gvMutex.unlock();
+    vehicles.push_back(vehicle3);
 
 	do{
 		indexVertex = rand() % graph.getNumVertex();
 	} while(vertexes[indexVertex]->getInfo().getType() != "");
 
 	Vehicle vehicle4("Carro da Policia", vertexes[indexVertex]->getInfo(), false);
-	gv->setVertexIcon(vertexes[indexVertex]->getInfo().getId(), "police.png");
-	vehicles.push_back(vehicle4);
+    gvMutex.lock();
+	    gv->setVertexIcon(vertexes[indexVertex]->getInfo().getId(), "police.png");
+    gvMutex.unlock();
+    vehicles.push_back(vehicle4);
 
 	do{
 		indexVertex = rand() % graph.getNumVertex();
 	} while(vertexes[indexVertex]->getInfo().getType() != "");
 
 	Vehicle vehicle5("Camiao dos Bombeiros", vertexes[indexVertex]->getInfo(), false);
-	gv->setVertexIcon(vertexes[indexVertex]->getInfo().getId(), "firemen.png");
+    gvMutex.lock();
+	    gv->setVertexIcon(vertexes[indexVertex]->getInfo().getId(), "firemen.png");
+    gvMutex.unlock();
 	vehicles.push_back(vehicle5);
 
 	return vehicles;
@@ -75,7 +89,9 @@ void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
     while(distance == INT_INFINITY) {
         switch (emergencyType) {
             case 1:
-                gv->setVertexColor(id, BLUE);
+                gvMutex.lock();
+                    gv->setVertexColor(id, BLUE);
+                gvMutex.unlock();
                 for (size_t i = 0; i < vehicles.size(); i++) {
                     if (vehicles[i].getType() == "Carro da Policia" && !(vehicles[i].getBusy())) {
                         graph.dijkstraShortestPath(vehicles[i].getInfo());
@@ -96,7 +112,9 @@ void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
                 }
                 break;
             case 2:
-                gv->setVertexColor(id, RED);
+                gvMutex.lock();
+                    gv->setVertexColor(id, RED);
+                gvMutex.unlock();
                 for (size_t i = 0; i < vehicles.size(); i++) {
                     if (vehicles[i].getType() == "Camiao dos Bombeiros" && !(vehicles[i].getBusy())) {
                         graph.dijkstraShortestPath(vehicles[i].getInfo());
@@ -117,7 +135,9 @@ void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
                 }
                 break;
             case 3:
-                gv->setVertexColor(id, YELLOW);
+                gvMutex.lock();
+                    gv->setVertexColor(id, YELLOW);
+                gvMutex.unlock();
                 for (size_t i = 0; i < vehicles.size(); i++) {
                     if (vehicles[i].getType() == "Mota" && !(vehicles[i].getBusy())) {
                         graph.dijkstraShortestPath(vehicles[i].getInfo());
@@ -138,7 +158,9 @@ void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
                 }
                 break;
             case 4:
-                gv->setVertexColor(id, ORANGE);
+                gvMutex.lock();
+                    gv->setVertexColor(id, ORANGE);
+                gvMutex.unlock();
                 for (size_t i = 0; i < vehicles.size(); i++) {
                     if (vehicles[i].getType() == "Carrinha" && !(vehicles[i].getBusy())) {
                         graph.dijkstraShortestPath(vehicles[i].getInfo());
@@ -159,7 +181,9 @@ void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
                 }
                 break;
             case 5:
-                gv->setVertexColor(id, BLACK);
+                gvMutex.lock();
+                    gv->setVertexColor(id, BLACK);
+                gvMutex.unlock();
                 for (size_t i = 0; i < vehicles.size(); i++) {
                     if (vehicles[i].getType() == "Ambulancia" && !(vehicles[i].getBusy())) {
                         graph.dijkstraShortestPath(vehicles[i].getInfo());
@@ -181,7 +205,9 @@ void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
                 break;
         }
 
-        gv->rearrange();
+        gvMutex.lock();
+            gv->rearrange();
+        gvMutex.unlock();
     }
 	//cout << "O/A "<< vehicles[pos].getType() <<" percorreu a distancia minima de " << distance <<" metros ate a emergencia!\n";
 	vehicles[pos].setBusy(true);
@@ -247,14 +273,22 @@ void followPath(const Graph<NodeInformation> & graph, GraphViewer *gv, vector<Ve
     for (size_t i = 0; i < pathIDs.size(); i++)
     {
 		this_thread::sleep_for(chrono::seconds(1));
-        gv->clearVertexIcon(vehicle[pos].getInfo().getId());
+        gvMutex.lock();
+            gv->clearVertexIcon(vehicle[pos].getInfo().getId());
+        gvMutex.unlock();
         repaintVehicles(gv, vehicle, pos);
-		gv->setVertexIcon(pathIDs[i], iconPth);
+        gvMutex.lock();
+		    gv->setVertexIcon(pathIDs[i], iconPth);
+        gvMutex.unlock();
 		vehicle[pos].setInfo(graph.getVertex(NodeInformation(pathIDs[i], 1,1))->getInfo());
-		gv->rearrange();
+        gvMutex.lock();
+		    gv->rearrange();
+        gvMutex.unlock();
     }
-    gv->setVertexColor(pathIDs[pathIDs.size() - 1], GREEN);
-    gv->rearrange();
+    gvMutex.lock();
+        gv->setVertexColor(pathIDs[pathIDs.size() - 1], GREEN);
+        gv->rearrange();
+    gvMutex.unlock();
 }
 
 void getPathToEmergencyCentre(Graph<NodeInformation> & graph, int emergencyType, const vector<NodeInformation> & buildings, Vehicle & vehicle){
@@ -354,7 +388,9 @@ void testGraphConectivity(const Graph<NodeInformation> & graph){
 void repaintVehicles(GraphViewer *gv, vector<Vehicle> &vehicles, int pos){
 	for (size_t i = 0; i < vehicles.size(); i++){
 		if (i != pos){
-			gv->setVertexIcon(vehicles[i].getInfo().getId(), iconPath(vehicles[i].getType()));
+            gvMutex.lock();
+			    gv->setVertexIcon(vehicles[i].getInfo().getId(), iconPath(vehicles[i].getType()));
+            gvMutex.unlock();
 		}
 	}
 }
