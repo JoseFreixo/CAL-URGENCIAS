@@ -9,12 +9,12 @@
 #include "Vehicle.h"
 #include <vector>
 #include <fstream>
+#include <thread>
 
-void readInt(int &n){
+void readInt(int &n) {
 //    int tmp = n;
-    do
-    {
-        if(cin.fail()) {
+    do {
+        if (cin.fail()) {
             cin.clear();
             cin.ignore(INT_MAX, '\n');
             cerr << "\nInseriu um caracter invalido, tente novamente ";
@@ -22,46 +22,48 @@ void readInt(int &n){
 
         cin >> n;
 
-    }while(cin.fail());
+    } while (cin.fail());
 
     cin.ignore(); //Ignores the '\n' character
 
 }
 
-int main () {
-	cout << "Introduza o prefixo dos ficheiros que deseja ler (Ex: 'Prefixo'Nodes.txt, excluindo as plicas): ";
-	string filename;
-	getline(cin, filename);
+int main() {
+    cout << "Introduza o prefixo dos ficheiros que deseja ler (Ex: 'Prefixo'Nodes.txt, excluindo as plicas): ";
+    string filename;
+    getline(cin, filename);
 
-	ifstream fileN, fileR, fileSR;
-	fileN.open(filename + "Nodes.txt");
-	fileR.open(filename + "Roads.txt");
-	fileSR.open(filename + "SubRoads.txt");
+    ifstream fileN, fileR, fileSR;
+    fileN.open(filename + "Nodes.txt");
+    fileR.open(filename + "Roads.txt");
+    fileSR.open(filename + "SubRoads.txt");
 
-	while(!fileN.is_open() || !fileR.is_open() || !fileSR.is_open()){
-		cout << "Pelo menos um dos ficheiros nao foi encontrado, reintroduza o prefixo ou verifique se existe algum erro no nome dos ficheiros: ";
-		getline(cin, filename);
-		fileN.open(filename + "Nodes.txt");
-		fileR.open(filename + "Roads.txt");
-		fileSR.open(filename + "SubRoads.txt");
-	}
+    while (!fileN.is_open() || !fileR.is_open() || !fileSR.is_open()) {
+        cout
+                << "Pelo menos um dos ficheiros nao foi encontrado, reintroduza o prefixo ou verifique se existe algum erro no nome dos ficheiros: ";
+        getline(cin, filename);
+        fileN.open(filename + "Nodes.txt");
+        fileR.open(filename + "Roads.txt");
+        fileSR.open(filename + "SubRoads.txt");
+    }
 
-	fileN.close();
-	fileR.close();
-	fileSR.close();
+    fileN.close();
+    fileR.close();
+    fileSR.close();
 
-	ofstream algorithmResults;
-	algorithmResults.open(filename + "AlgorithmResults.txt", ofstream::out | ofstream::app);
+    ofstream algorithmResults;
+    algorithmResults.open(filename + "AlgorithmResults.txt", ofstream::out | ofstream::app);
 
-	Graph<NodeInformation> graph;
+    Graph<NodeInformation> graph;
     vector<NodeInformation> buildings;
 
-    GraphViewer* gv = new GraphViewer(MapCoordinates::windowWidth, MapCoordinates::windowHeight, false);
+    GraphViewer *gv = new GraphViewer(MapCoordinates::windowWidth, MapCoordinates::windowHeight, false);
     gv->createWindow(MapCoordinates::windowWidth, MapCoordinates::windowHeight);
 
-    if(!FileReading::readSimpleInfo(graph, gv, buildings, filename + "Nodes.txt", filename + "Roads.txt", filename + "SubRoads.txt")){
-    	cerr << "Ficheiros invalidos ou mal formatados.";
-    	return 1;
+    if (!FileReading::readSimpleInfo(graph, gv, buildings, filename + "Nodes.txt", filename + "Roads.txt",
+                                     filename + "SubRoads.txt")) {
+        cerr << "Ficheiros invalidos ou mal formatados.";
+        return 1;
     }
 
     vector<Vehicle> vehicles = generateVehicles(graph, gv);
@@ -72,10 +74,9 @@ int main () {
     gv->rearrange();
 
 
-
     int choice = -1;
-
-    while(true){
+    //vector<thread*> threads;
+    while (true) {
 
         /*Menu*/
         cout << "\nSistema de Gestao de Emergencias\n\n";
@@ -83,23 +84,23 @@ int main () {
         cout << "2. Testar Algoritmos\n";
         cout << "3. Testar Conetividade\n";
         cout << "0. Terminar programa\n";
-        cout <<"Insira uma das opcoes: ";
+        cout << "Insira uma das opcoes: ";
 
         readInt(choice);
 
-        switch (choice){
+        switch (choice) {
             case 1:
-                randomEmergency(graph, gv, vehicles, buildings);
+                thread(randomEmergency, ref(graph), gv, ref(vehicles), ref(buildings)).detach();
                 break;
             case 2:
                 testEmergency(graph, algorithmResults);
                 cout << "Os resultados foram escritos para um ficheiro\n";
                 break;
             case 3:
-            	testGraphConectivity(graph);
-            	break;
+                testGraphConectivity(graph);
+                break;
             case 0:
-            	algorithmResults.close();
+                algorithmResults.close();
                 return 0;
             default:
                 cout << "Opcao invalida, tente novamente...\n";
