@@ -51,10 +51,15 @@ vector<Vehicle> generateVehicles(const Graph<NodeInformation> & graph, GraphView
 	return vehicles;
 }
 
-void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Vehicle> & vehicles, const vector<NodeInformation> &buildings)
-{
+void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Vehicle> & vehicles, const vector<NodeInformation> &buildings) {
 	int indexVertex;
     vector<Vertex<NodeInformation>*> vertexes = graph.getVertexSet();
+
+    /*struct timeval time;
+    gettimeofday(&time,NULL);
+    srand((time.tv_sec * 1000) + (time.tv_usec / 1000));*/
+
+    srand ((unsigned int) std::chrono::system_clock::now().time_since_epoch().count());
 
     do{
 		indexVertex = rand() % graph.getNumVertex();
@@ -67,121 +72,117 @@ void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
 	int pos;
 	int distance = INT_INFINITY;
 
-	switch(emergencyType){
-		case 1:
-			gv->setVertexColor(id, BLUE);
-			for (size_t i = 0; i < vehicles.size(); i++){
-				if (vehicles[i].getType() == "Carro da Policia" && !(vehicles[i].getBusy())) {
-					graph.dijkstraShortestPath(vehicles[i].getInfo());
-					if (graph.getVertex(vertexes[indexVertex]->getInfo())->getDist() < distance){
-						pos = i;
-						distance = graph.getVertex(vertexes[indexVertex]->getInfo())->getDist();
+    while(distance == INT_INFINITY) {
+        switch (emergencyType) {
+            case 1:
+                gv->setVertexColor(id, BLUE);
+                for (size_t i = 0; i < vehicles.size(); i++) {
+                    if (vehicles[i].getType() == "Carro da Policia" && !(vehicles[i].getBusy())) {
+                        graph.dijkstraShortestPath(vehicles[i].getInfo());
+                        if (graph.getVertex(vertexes[indexVertex]->getInfo())->getDist() < distance) {
+                            pos = i;
+                            distance = graph.getVertex(vertexes[indexVertex]->getInfo())->getDist();
 
-						NodeInformation currentNode = vertexes[indexVertex]->getInfo();
-						vector<int> way;
-						do{
-							way.insert(way.begin(), currentNode.getId());
-							currentNode = ((graph.getVertex(currentNode))->path)->getInfo();
-						}while(currentNode.getId() != vehicles[i].getInfo().getId());
+                            NodeInformation currentNode = vertexes[indexVertex]->getInfo();
+                            vector<int> way;
+                            do {
+                                way.insert(way.begin(), currentNode.getId());
+                                currentNode = ((graph.getVertex(currentNode))->path)->getInfo();
+                            } while (currentNode.getId() != vehicles[i].getInfo().getId());
 
-						vehicles[pos].setWay(way);
-					}
-				}
-			}
-            break;
-		case 2:
-			gv->setVertexColor(id, RED);
-			for (size_t i = 0; i < vehicles.size(); i++){
-				if (vehicles[i].getType() == "Camiao dos Bombeiros" && !(vehicles[i].getBusy())) {
-					graph.dijkstraShortestPath(vehicles[i].getInfo());
-					if (graph.getVertex(vertexes[indexVertex]->getInfo())->getDist() < distance) {
-						pos = i;
-						distance = graph.getVertex(vertexes[indexVertex]->getInfo())->getDist();
+                            vehicles[pos].setWay(way);
+                        }
+                    }
+                }
+                break;
+            case 2:
+                gv->setVertexColor(id, RED);
+                for (size_t i = 0; i < vehicles.size(); i++) {
+                    if (vehicles[i].getType() == "Camiao dos Bombeiros" && !(vehicles[i].getBusy())) {
+                        graph.dijkstraShortestPath(vehicles[i].getInfo());
+                        if (graph.getVertex(vertexes[indexVertex]->getInfo())->getDist() < distance) {
+                            pos = i;
+                            distance = graph.getVertex(vertexes[indexVertex]->getInfo())->getDist();
 
-						NodeInformation currentNode = vertexes[indexVertex]->getInfo();
-						vector<int> way;
-						do {
-							way.insert(way.begin(), currentNode.getId());
-							currentNode = ((graph.getVertex(currentNode))->path)->getInfo();
-						} while (currentNode.getId() != vehicles[i].getInfo().getId());
+                            NodeInformation currentNode = vertexes[indexVertex]->getInfo();
+                            vector<int> way;
+                            do {
+                                way.insert(way.begin(), currentNode.getId());
+                                currentNode = ((graph.getVertex(currentNode))->path)->getInfo();
+                            } while (currentNode.getId() != vehicles[i].getInfo().getId());
 
-						vehicles[pos].setWay(way);
-					}
-				}
-			}
-            break;
-		case 3:
-			gv->setVertexColor(id, YELLOW);
-			for (size_t i = 0; i < vehicles.size(); i++){
-				if (vehicles[i].getType() == "Mota" && !(vehicles[i].getBusy())) {
-					graph.dijkstraShortestPath(vehicles[i].getInfo());
-					if (graph.getVertex(vertexes[indexVertex]->getInfo())->getDist() < distance) {
-						pos = i;
-						distance = graph.getVertex(vertexes[indexVertex]->getInfo())->getDist();
+                            vehicles[pos].setWay(way);
+                        }
+                    }
+                }
+                break;
+            case 3:
+                gv->setVertexColor(id, YELLOW);
+                for (size_t i = 0; i < vehicles.size(); i++) {
+                    if (vehicles[i].getType() == "Mota" && !(vehicles[i].getBusy())) {
+                        graph.dijkstraShortestPath(vehicles[i].getInfo());
+                        if (graph.getVertex(vertexes[indexVertex]->getInfo())->getDist() < distance) {
+                            pos = i;
+                            distance = graph.getVertex(vertexes[indexVertex]->getInfo())->getDist();
 
-						NodeInformation currentNode = vertexes[indexVertex]->getInfo();
-						vector<int> way;
-						do {
-							way.insert(way.begin(), currentNode.getId());
-							currentNode = ((graph.getVertex(currentNode))->path)->getInfo();
-						} while (currentNode.getId() != vehicles[i].getInfo().getId());
+                            NodeInformation currentNode = vertexes[indexVertex]->getInfo();
+                            vector<int> way;
+                            do {
+                                way.insert(way.begin(), currentNode.getId());
+                                currentNode = ((graph.getVertex(currentNode))->path)->getInfo();
+                            } while (currentNode.getId() != vehicles[i].getInfo().getId());
 
-						vehicles[pos].setWay(way);
-					}
-				}
-			}
-            break;
-		case 4:
-			gv->setVertexColor(id, ORANGE);
-			for (size_t i = 0; i < vehicles.size(); i++){
-				if (vehicles[i].getType() == "Carrinha" && !(vehicles[i].getBusy())) {
-					graph.dijkstraShortestPath(vehicles[i].getInfo());
-					if (graph.getVertex(vertexes[indexVertex]->getInfo())->getDist() < distance) {
-						pos = i;
-						distance = graph.getVertex(vertexes[indexVertex]->getInfo())->getDist();
+                            vehicles[pos].setWay(way);
+                        }
+                    }
+                }
+                break;
+            case 4:
+                gv->setVertexColor(id, ORANGE);
+                for (size_t i = 0; i < vehicles.size(); i++) {
+                    if (vehicles[i].getType() == "Carrinha" && !(vehicles[i].getBusy())) {
+                        graph.dijkstraShortestPath(vehicles[i].getInfo());
+                        if (graph.getVertex(vertexes[indexVertex]->getInfo())->getDist() < distance) {
+                            pos = i;
+                            distance = graph.getVertex(vertexes[indexVertex]->getInfo())->getDist();
 
-						NodeInformation currentNode = vertexes[indexVertex]->getInfo();
-						vector<int> way;
-						do {
-							way.insert(way.begin(), currentNode.getId());
-							currentNode = ((graph.getVertex(currentNode))->path)->getInfo();
-						} while (currentNode.getId() != vehicles[i].getInfo().getId());
+                            NodeInformation currentNode = vertexes[indexVertex]->getInfo();
+                            vector<int> way;
+                            do {
+                                way.insert(way.begin(), currentNode.getId());
+                                currentNode = ((graph.getVertex(currentNode))->path)->getInfo();
+                            } while (currentNode.getId() != vehicles[i].getInfo().getId());
 
-						vehicles[pos].setWay(way);
-					}
-				}
-			}
-            break;
-		case 5:
-			gv->setVertexColor(id, BLACK);
-			for (size_t i = 0; i < vehicles.size(); i++) {
-				if (vehicles[i].getType() == "Ambulancia" && !(vehicles[i].getBusy())) {
-					graph.dijkstraShortestPath(vehicles[i].getInfo());
-					if (graph.getVertex(vertexes[indexVertex]->getInfo())->getDist() < distance) {
-						pos = i;
-						distance = graph.getVertex(vertexes[indexVertex]->getInfo())->getDist();
+                            vehicles[pos].setWay(way);
+                        }
+                    }
+                }
+                break;
+            case 5:
+                gv->setVertexColor(id, BLACK);
+                for (size_t i = 0; i < vehicles.size(); i++) {
+                    if (vehicles[i].getType() == "Ambulancia" && !(vehicles[i].getBusy())) {
+                        graph.dijkstraShortestPath(vehicles[i].getInfo());
+                        if (graph.getVertex(vertexes[indexVertex]->getInfo())->getDist() < distance) {
+                            pos = i;
+                            distance = graph.getVertex(vertexes[indexVertex]->getInfo())->getDist();
 
-						NodeInformation currentNode = vertexes[indexVertex]->getInfo();
-						vector<int> way;
-						do {
-							way.insert(way.begin(), currentNode.getId());
-							currentNode = ((graph.getVertex(currentNode))->path)->getInfo();
-						} while (currentNode.getId() != vehicles[i].getInfo().getId());
+                            NodeInformation currentNode = vertexes[indexVertex]->getInfo();
+                            vector<int> way;
+                            do {
+                                way.insert(way.begin(), currentNode.getId());
+                                currentNode = ((graph.getVertex(currentNode))->path)->getInfo();
+                            } while (currentNode.getId() != vehicles[i].getInfo().getId());
 
-						vehicles[pos].setWay(way);
-					}
-				}
-			}
-			break;
-	}
+                            vehicles[pos].setWay(way);
+                        }
+                    }
+                }
+                break;
+        }
 
-	gv->rearrange();
-
-	if (distance == INT_INFINITY){
-		cout << "Nao ha veiculos adequados disponiveis.\n";
-		gv->setVertexColor(id, GREEN);
-		return;
-	}
+        gv->rearrange();
+    }
 	//cout << "O/A "<< vehicles[pos].getType() <<" percorreu a distancia minima de " << distance <<" metros ate a emergencia!\n";
 	vehicles[pos].setBusy(true);
     followPath(graph, gv, vehicles, pos);
