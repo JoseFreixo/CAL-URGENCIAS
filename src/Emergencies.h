@@ -27,4 +27,6 @@ void testGraphConectivity(const Graph<NodeInformation> & graph);
 
 void repaintVehicles(GraphViewer *gv, vector<Vehicle> &vehicles, int pos);
 
+void searchStreetVehicles(const Graph<NodeInformation> & graph, string s1, string s2);
+
 #endif

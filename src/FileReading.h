@@ -133,10 +133,10 @@ bool FileReading::readSimpleInfo(Graph<NodeInformation> & graph, GraphViewer *gv
 		NodeInformation des = v2test->getInfo();
 		int w = sqrt(pow(sourc.getLatitude() - des.getLatitude(), 2) + pow(sourc.getLongitude() - des.getLongitude(),2));
 
-		graph.addEdge(sourc, des, w, idAresta);
+		graph.addEdge(sourc, des, w, idAresta, ((*it).second).first);
 
 		if (bidirected == EdgeType::UNDIRECTED){
-			graph.addEdge(des, sourc, w, idAresta);
+			graph.addEdge(des, sourc, w, idAresta, ((*it).second).first);
 		}
 	}
 
