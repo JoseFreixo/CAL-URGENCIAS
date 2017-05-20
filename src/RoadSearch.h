@@ -6,6 +6,6 @@
 #include "graphviewer.h"
 #include "Vehicle.h"
 
-void searchStreetVehicles(const Graph<NodeInformation> & graph, string s1, string s2);
+void searchStreetVehicles(const Graph<NodeInformation> & graph, string s1, string s2, int vehicle);
 
 #endif //CAL_URGENCIAS_ROADSEARCH_H
