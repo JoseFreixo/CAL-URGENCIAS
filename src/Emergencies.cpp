@@ -179,15 +179,16 @@ void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
 
 	if (distance == INT_INFINITY){
 		cout << "Nao ha veiculos adequados disponiveis.\n";
+		gv->setVertexColor(id, GREEN);
 		return;
 	}
-	cout << "O/A "<< vehicles[pos].getType() <<" percorreu a distancia minima de " << distance <<" metros ate a emergencia!\n";
+	//cout << "O/A "<< vehicles[pos].getType() <<" percorreu a distancia minima de " << distance <<" metros ate a emergencia!\n";
 	vehicles[pos].setBusy(true);
     followPath(graph, gv, vehicles, pos);
     getPathToEmergencyCentre(graph, emergencyType, buildings, vehicles[pos]);
     followPath(graph, gv, vehicles, pos);
     vehicles[pos].setBusy(false);
-    cout << "Emergencia resolvida!\n";
+    //cout << "Emergencia resolvida!\n";
 }
 
 void testEmergency(Graph<NodeInformation> & graph, ofstream & algorithmResults){
@@ -321,7 +322,7 @@ void getPathToEmergencyCentre(Graph<NodeInformation> & graph, int emergencyType,
 		}
 		break;
 	}
-	cout << "O/A " << vehicle.getType() << " percorreu " <<distance <<" metros, ate ao centro de emergencias\n";
+	//cout << "O/A " << vehicle.getType() << " percorreu " <<distance <<" metros, ate ao centro de emergencias\n";
 }
 
 string iconPath(const string &vehicleType){
