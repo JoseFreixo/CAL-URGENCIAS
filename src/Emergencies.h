@@ -8,6 +8,7 @@
 #include "Vehicle.h"
 #include <ctime>
 #include <thread>
+#include <mutex>
 #include <chrono>
 #include <fstream>
 
