@@ -6,6 +6,7 @@
 #include "graphviewer.h"
 #include "Vehicle.h"
 #include <vector>
+#include "matcher.cpp"
 
 void searchStreetVehicles(const Graph<NodeInformation> & graph, string s1, string s2, int vehicle);
 

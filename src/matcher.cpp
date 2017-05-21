@@ -1,12 +1,9 @@
 /*
  * matcher.cpp
  */
-#include <string>
-#include <vector>
-#include <iostream>
-#include <algorithm>
-#include <fstream>
-#include <sstream>
+
+#include "matcher.h"
+
 using namespace std;
 
 void pre_kmp(string pattern, vector<int> & prefix)
