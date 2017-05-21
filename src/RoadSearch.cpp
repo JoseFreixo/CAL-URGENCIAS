@@ -1,38 +1,74 @@
 #include "RoadSearch.h"
 
 void searchStreetVehicles(const Graph<NodeInformation> & graph, const string & s1, const string & s2, const int & vehicle, const vector<Vehicle> & vehicles){
-    NodeInformation road1[2];
-    NodeInformation road2[2];
-    int road1Found = false;
-    int road2Found = false;
+    vector<pair<NodeInformation, NodeInformation>> roads1Nodes;
+    vector<pair<NodeInformation, NodeInformation>> roads2Nodes;
+    vector<string> roads1;
+    vector<string> roads2;
     vector<Vertex<NodeInformation>* > v = graph.getVertexSet();
-    for (size_t i = 0; i < v.size() && ( !road1Found || !road2Found); i++){
+    for (size_t i = 0; i < v.size(); i++){
         vector<Edge<NodeInformation>> tmp = v[i]->getAdj();
         for (size_t a = 0; a < tmp.size(); a++) {
-            if (!road1Found && naive(tmp[a].getLabel(), s1)) {
-                road1[0] = v[i]->getInfo();
-                road1[1] = tmp[a].getDest()->getInfo();
-                road1Found = true;
+            if (naive(tmp[a].getLabel(), s1)) {
+                if (vectorNonRepeatedInsert(roads1, tmp[a].getLabel())) {
+                    pair<NodeInformation, NodeInformation> road;
+                    road.first = v[i]->getInfo();
+                    road.second = tmp[a].getDest()->getInfo();
+                    roads1Nodes.push_back(road);
+                }
             }
-            if (!road2Found && naive(tmp[a].getLabel(), s2)) {
-                road2[0] = v[i]->getInfo();
-                road2[1] = tmp[a].getDest()->getInfo();
-                road2Found = true;
+            if (naive(tmp[a].getLabel(), s2)) {
+                if (vectorNonRepeatedInsert(roads2, tmp[a].getLabel())) {
+                    pair<NodeInformation, NodeInformation> road;
+                    road.first = v[i]->getInfo();
+                    road.second = tmp[a].getDest()->getInfo();
+                    roads2Nodes.push_back(road);
+                }
             }
         }
     }
-    if (!road1Found){
+    if (roads1.size() == 0){
         cout << "Nao existe nenhuma rua com '" << s1 << "' no seu nome!\n";
         return;
     }
-    if (!road2Found){
+    if (roads2.size() == 0){
         cout << "Nao existe nenhuma rua com '" << s2 << "' no seu nome!\n";
         return;
     }
 
+    int choice = -1;
+    if (roads1.size() != 1){
+        while (choice < 1 || choice > roads1.size()){
+            cout << "Foram encontradas as seguintes ruas, qual delas quer?\n\n";
+            for (int i = 0; i < roads1.size(); i++){
+                cout << i + 1 << ". " << roads1[i] << endl;
+            }
+            cout << endl << "Opcao: ";
+            readInt(choice);
+        }
+    }
+    if(choice == -1)
+        choice = 1;
+    NodeInformation r1[] = {roads1Nodes[choice - 1].first, roads1Nodes[choice - 1].second};
+
+    choice = -1;
+    if (roads2.size() != 1){
+        while (choice < 1 || choice > roads2.size()){
+            cout << "Foram encontradas as seguintes ruas, qual delas quer?\n\n";
+            for (int i = 0; i < roads2.size(); i++){
+                cout << i + 1 << ". " << roads2[i] << endl;
+            }
+            cout << endl << "Opcao: ";
+            readInt(choice);
+        }
+    }
+    if(choice == -1)
+        choice = 1;
+    NodeInformation r2[] = {roads2Nodes[choice - 1].first, roads2Nodes[choice - 1].second};
+
     NodeInformation node;
 
-    if (verifyRoadConnection(road1, road2, node)){
+    if (verifyRoadConnection(r1, r2, node)){
         cout << "As ruas fornecidas nao se cruzam, impossivel verificar veiculos num cruzamento inexistente.\n";
         return;
     }
@@ -86,6 +122,8 @@ void searchStreetVehicles(const Graph<NodeInformation> & graph, const string & s
                 }
             }
             break;
+        default:
+            break;
     }
 
     cout << "Nenhum(a) " << veiculo << " se encontra no cruzamento entre as ruas fornecidas.\n";
@@ -102,4 +140,32 @@ int verifyRoadConnection(const NodeInformation road1[], const NodeInformation ro
         }
     }
     return 1;
+}
+
+template <class T>
+bool vectorNonRepeatedInsert(vector<T> & vec, T elem){
+    for(size_t i = 0; i < vec.size(); i++){
+        if (vec[i] == elem)
+            return false;
+    }
+    vec.push_back(elem);
+    return true;
+}
+
+void readInt(int &n){
+//    int tmp = n;
+    do
+    {
+        if(cin.fail()) {
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
+            cerr << "\nInseriu um caracter invalido, tente novamente ";
+        }
+
+        cin >> n;
+
+    }while(cin.fail());
+
+    cin.ignore(); //Ignores the '\n' character
+
 }

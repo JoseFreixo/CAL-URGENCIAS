@@ -12,4 +12,9 @@ void searchStreetVehicles(const Graph<NodeInformation> & graph, const string & s
 
 int verifyRoadConnection(const NodeInformation road1[], const NodeInformation road2[], NodeInformation & node);
 
+template <class T>
+bool vectorNonRepeatedInsert(vector<T> & vec, T elem);
+
+void readInt(int &n);
+
 #endif //CAL_URGENCIAS_ROADSEARCH_H

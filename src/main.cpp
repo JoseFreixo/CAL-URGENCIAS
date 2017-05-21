@@ -5,24 +5,6 @@
 #include "Emergencies.h"
 #include "RoadSearch.h"
 
-void readInt(int &n){
-//    int tmp = n;
-    do
-    {
-        if(cin.fail()) {
-            cin.clear();
-            cin.ignore(INT_MAX, '\n');
-            cerr << "\nInseriu um caracter invalido, tente novamente ";
-        }
-
-        cin >> n;
-
-    }while(cin.fail());
-
-    cin.ignore(); //Ignores the '\n' character
-
-}
-
 int main () {
 	cout << "Introduza o prefixo dos ficheiros que deseja ler (Ex: 'Prefixo'Nodes.txt, excluindo as plicas): ";
 	string filename;
