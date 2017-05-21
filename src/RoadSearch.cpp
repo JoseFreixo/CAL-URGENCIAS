@@ -9,12 +9,12 @@ void searchStreetVehicles(const Graph<NodeInformation> & graph, const string & s
     for (size_t i = 0; i < v.size() && ( !road1Found || !road2Found); i++){
         vector<Edge<NodeInformation>> tmp = v[i]->getAdj();
         for (size_t a = 0; a < tmp.size(); a++) {
-            if (!road1Found && kmp(tmp[a].getLabel(), s1)) {
+            if (!road1Found && naive(tmp[a].getLabel(), s1)) {
                 road1[0] = v[i]->getInfo();
                 road1[1] = tmp[a].getDest()->getInfo();
                 road1Found = true;
             }
-            if (!road2Found && kmp(tmp[a].getLabel(), s2)) {
+            if (!road2Found && naive(tmp[a].getLabel(), s2)) {
                 road2[0] = v[i]->getInfo();
                 road2[1] = tmp[a].getDest()->getInfo();
                 road2Found = true;
@@ -22,11 +22,11 @@ void searchStreetVehicles(const Graph<NodeInformation> & graph, const string & s
         }
     }
     if (!road1Found){
-        cout << "Nao existe nenhuma rua com " << s1 << " no seu nome!\n";
+        cout << "Nao existe nenhuma rua com '" << s1 << "' no seu nome!\n";
         return;
     }
     if (!road2Found){
-        cout << "Nao existe nenhuma rua com " << s2 << " no seu nome!\n";
+        cout << "Nao existe nenhuma rua com '" << s2 << "' no seu nome!\n";
         return;
     }
 

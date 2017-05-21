@@ -96,15 +96,18 @@ int main () {
             	break;
             case 4:
             {
+                int veiculo = -1;
+
             	string r1, r2;
             	cout << "Insira nome da 1a rua: ";
             	getline(cin, r1);
             	cout << "Insira nome da 2a rua: ";
             	getline(cin, r2);
-                cout << "Que veiculo procura?\n1. Mota do INEM\n2. Carrinha do INEM\n3. Ambulancia do INEM\n4. Camiao dos Bombeiros\n5. Carro da PSP\n\nOpcao: ";
-                int veiculo = -1;
-                readInt(veiculo);
-            	searchStreetVehicles(graph, r1, r2, veiculo, vehicles);
+                while (veiculo < 1 || veiculo > 5) {
+                    cout << "Que veiculo procura?\n1. Mota do INEM\n2. Carrinha do INEM\n3. Ambulancia do INEM\n4. Camiao dos Bombeiros\n5. Carro da PSP\n\nOpcao: ";
+                    readInt(veiculo);
+                }
+                searchStreetVehicles(graph, r1, r2, veiculo, vehicles);
             	break;
             }
             case 0:
