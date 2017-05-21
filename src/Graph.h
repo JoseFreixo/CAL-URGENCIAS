@@ -134,6 +134,7 @@ public:
 	Edge(Vertex<T> *d, double w, int id, string n);
 	int getId() const;
 	string getLabel() const;
+	Vertex<T>* getDest() const;
 	friend class Graph<T>;
 	friend class Vertex<T>;
 };
@@ -152,6 +153,10 @@ int Edge<T>::getId() const{
 template <class T>
 string Edge<T>::getLabel() const{
 	return label;
+}
+template <class T>
+Vertex<T>* Edge<T>::getDest() const{
+	return dest;
 }
 
 
