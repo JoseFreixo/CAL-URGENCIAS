@@ -10,6 +10,7 @@
 
 using namespace std;
 
+bool naive(string text, string pattern);
 
 void pre_kmp(string pattern, vector<int> & prefix);
 

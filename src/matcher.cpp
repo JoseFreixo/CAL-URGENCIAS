@@ -6,6 +6,24 @@
 
 using namespace std;
 
+bool naive(string text, string pattern){
+	int maxSize = text.size() - pattern.size() + 1;
+	for (size_t i = 0; (int)i < maxSize; i++) {
+		bool failed = false;
+		for (size_t j = 0; j < pattern.size(); j++) {
+			if (text.at(i + j) != pattern.at(j)) {
+				failed = true;
+				break;
+			}
+		}
+		if (!failed) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 void pre_kmp(string pattern, vector<int> & prefix)
 {
 	int m=pattern.length();

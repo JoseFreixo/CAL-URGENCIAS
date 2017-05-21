@@ -104,7 +104,7 @@ int main () {
                 cout << "Que veiculo procura?\n1. Mota do INEM\n2. Carrinha do INEM\n3. Ambulancia do INEM\n4. Camiao dos Bombeiros\n5. Carro da PSP\n\nOpcao: ";
                 int veiculo = -1;
                 readInt(veiculo);
-            	searchStreetVehicles(graph, r1, r2, veiculo);
+            	searchStreetVehicles(graph, r1, r2, veiculo, vehicles);
             	break;
             }
             case 0:

@@ -6,8 +6,10 @@
 #include "graphviewer.h"
 #include "Vehicle.h"
 #include <vector>
-#include "matcher.cpp"
+#include "matcher.h"
 
-void searchStreetVehicles(const Graph<NodeInformation> & graph, string s1, string s2, int vehicle);
+void searchStreetVehicles(const Graph<NodeInformation> & graph, const string & s1, const string & s2, const int & vehicle, const vector<Vehicle> & vehicles);
+
+int verifyRoadConnection(const NodeInformation road1[], const NodeInformation road2[], NodeInformation & node);
 
 #endif //CAL_URGENCIAS_ROADSEARCH_H
