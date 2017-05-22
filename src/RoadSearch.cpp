@@ -180,27 +180,6 @@ void compareStringMatchAlgorithms(string filename1, string filename2, string fil
         cout << "Nao e possivel abrir/criar o ficheiro de tempos dos algoritmos de comparacao de strings...\n";
         return;
     }
-/*
-    clock_t n1, n2, n3, n4, n5, n6, n7;
-    n1 = clock();
-    numNaive(filename1, "Totodile");
-    n2 = clock();
-    numNaive(filename2, "Pokemon");
-    n3 = clock();
-    numNaive(filename3, "Pokemon");
-    n4 = clock();
-    numStringMatching(filename1, "Totodile");
-    n5 = clock();
-    numStringMatching(filename2, "Pokemon");
-    n6 = clock();
-    numStringMatching(filename2, "Pokemon");
-    n7 = clock();
-    stringMatchResults << "Algoritmo\t-\t" << filename1 << "\t-\t" << filename2 << "\t-\t" << filename3 << endl;
-    stringMatchResults << "Naive\t\t-\t" << (double)(n2 - n1) / CLOCKS_PER_SEC << "\t-\t" << (double)(n3 - n2) / CLOCKS_PER_SEC << "\t-\t" << (double)(n4 - n3) / CLOCKS_PER_SEC << endl;
-    stringMatchResults << "KMP\t\t-\t" << (double)(n5 - n4) / CLOCKS_PER_SEC << "\t-\t" << (double)(n6 - n5) / CLOCKS_PER_SEC << "\t-\t" << (double)(n7 - n6) / CLOCKS_PER_SEC << endl;
-*/
-
-
 
     chrono::time_point<chrono::steady_clock> n1, n2, n3, n4, n5, n6, n7;
     n1 = chrono::steady_clock::now();
@@ -216,9 +195,18 @@ void compareStringMatchAlgorithms(string filename1, string filename2, string fil
     n6 = chrono::steady_clock::now();
     numStringMatching(filename3, "Pokemon");
     n7 = chrono::steady_clock::now();
-    stringMatchResults << "Algoritmo\t-\t" << filename1 << "\t-\t" << filename2 << "\t-\t" << filename3 << endl;
-    stringMatchResults << "Naive\t\t-\t" << chrono::duration_cast<chrono::microseconds>(n2 - n1).count() << "\t\t-\t" << chrono::duration_cast<chrono::microseconds>(n3 - n2).count() << "\t\t-\t" << chrono::duration_cast<chrono::microseconds>(n4 - n3).count() << endl;
-    stringMatchResults << "KMP\t\t-\t" << chrono::duration_cast<chrono::microseconds>(n5 - n4).count() << "\t\t-\t" << chrono::duration_cast<chrono::microseconds>(n6 - n5).count() << "\t\t-\t" << chrono::duration_cast<chrono::microseconds>(n7 - n6).count() << endl << endl;
+    stringMatchResults << setw(9) << "Algoritmo" << " - "
+                       << setw(filename1.length()) << filename1 << " - "
+                       << setw(filename2.length()) << filename2 << " - "
+                       << setw(filename3.length()) << filename3 << endl;
+    stringMatchResults << setw(9) << "Naive" << " - "
+                       << setw(filename1.length()) << chrono::duration_cast<chrono::microseconds>(n2 - n1).count() << " - "
+                       << setw(filename2.length()) << chrono::duration_cast<chrono::microseconds>(n3 - n2).count() << " - "
+                       << setw(filename3.length()) << chrono::duration_cast<chrono::microseconds>(n4 - n3).count() << endl;
+    stringMatchResults << setw(9) << "KMP" << " - "
+                       << setw(filename1.length()) << chrono::duration_cast<chrono::microseconds>(n5 - n4).count() << " - "
+                       << setw(filename2.length()) << chrono::duration_cast<chrono::microseconds>(n6 - n5).count() << " - "
+                       << setw(filename3.length()) << chrono::duration_cast<chrono::microseconds>(n7 - n6).count() << endl << endl;
 
 }
 
