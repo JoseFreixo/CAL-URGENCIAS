@@ -27,8 +27,9 @@ int main () {
 	fileR.close();
 	fileSR.close();
 
-	ofstream algorithmResults;
+	ofstream algorithmResults, stringMatchResults;
 	algorithmResults.open(filename + "AlgorithmResults.txt", ofstream::out | ofstream::app);
+    stringMatchResults.open(filename + "StringMatchComparison.txt", ofstream::out | ofstream::app);
 
 	Graph<NodeInformation> graph;
     vector<NodeInformation> buildings;
@@ -57,14 +58,15 @@ int main () {
         /*Menu*/
         cout << "\nSistema de Gestao de Emergencias\n\n";
         cout << "1. Gerar Emergencia aleatoria\n";
-        cout << "2. Testar Algoritmos\n";
+        cout << "2. Testar Algoritmos de caminho mais curto\n";
         cout << "3. Testar Conetividade\n";
         cout << "4. Procurar recursos de emergencia\n";
+        cout << "5. Testar Algoritmos de comparacao de strings\n";
         cout << "0. Terminar programa\n";
         cout <<"Insira uma das opcoes: ";
 
         readInt(choice);
-
+        string fn1, fn2, fn3;
         switch (choice){
             case 1:
                 thread(randomEmergency, ref(graph), gv, ref(vehicles), ref(buildings)).detach();
@@ -92,10 +94,18 @@ int main () {
                 searchStreetVehicles(graph, r1, r2, veiculo, vehicles);
             	break;
             }
+            case 5:
+                cout << "Insira o nome do ficheiro de texto nr. 1: ";
+                getline(cin, fn1);
+                cout << "Insira o nome do ficheiro de texto nr. 2: ";
+                getline(cin, fn2);
+                cout << "Insira o nome do ficheiro de texto nr. 3: ";
+                getline(cin, fn3);
+                compareStringMatchAlgorithms(fn1, fn2, fn3, stringMatchResults);
+                break;
             case 0:
             	algorithmResults.close();
                 return 0;
-                break;
             default:
                 cout << "Opcao invalida, tente novamente...\n";
                 break;
