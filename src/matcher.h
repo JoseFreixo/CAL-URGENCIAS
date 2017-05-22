@@ -20,6 +20,6 @@ int numStringMatching(string filename,string toSearch);
 
 int editDistance(string pattern, string text);
 
-float numApproximateStringMatching(string filename,string toSearch);
+bool approximateStringMatching(string text,string toSearch);
 
 #endif //MATCHER_H_

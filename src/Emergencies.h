@@ -18,7 +18,7 @@ void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
 
 void testEmergency(Graph<NodeInformation> & graph, ofstream & algorithmResults);
 
-void followPath(const Graph<NodeInformation> & graph, GraphViewer *gv, vector<Vehicle> &vehicle, int pos);
+void followPath(const Graph<NodeInformation> & graph, GraphViewer *gv, vector<Vehicle> &vehicle, unsigned int pos);
 
 void getPathToEmergencyCentre(Graph<NodeInformation> & graph, int emergencyType, const vector<NodeInformation> & buildings, Vehicle & vehicle);
 
@@ -26,7 +26,7 @@ string iconPath(const string &vehicleType);
 
 void testGraphConectivity(const Graph<NodeInformation> & graph);
 
-void repaintVehicles(GraphViewer *gv, vector<Vehicle> &vehicles, int pos);
+void repaintVehicles(GraphViewer *gv, vector<Vehicle> &vehicles, unsigned int pos);
 
 void searchStreetVehicles(const Graph<NodeInformation> & graph, string s1, string s2);
 

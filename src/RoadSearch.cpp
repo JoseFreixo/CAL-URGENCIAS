@@ -28,18 +28,20 @@ void searchStreetVehicles(const Graph<NodeInformation> & graph, const string & s
         }
     }
     if (roads1.size() == 0){
-        cout << "Nao existe nenhuma rua com '" << s1 << "' no seu nome!\n";
-        return;
+        cout << "Nao existe nenhuma rua com '" << s1 << "' no seu nome! A efetuar pesquisa aproximada...\n";
+        if(!findApproximateRoads(roads1Nodes, roads1, s1, graph))
+            return;
     }
     if (roads2.size() == 0){
-        cout << "Nao existe nenhuma rua com '" << s2 << "' no seu nome!\n";
-        return;
+        cout << "Nao existe nenhuma rua com '" << s2 << "' no seu nome! A efetuar pesquisa aproximada...\n";
+        if(!findApproximateRoads(roads2Nodes, roads2, s2, graph))
+            return;
     }
 
     int choice = -1;
     if (roads1.size() != 1){
         while (choice < 1 || choice > roads1.size()){
-            cout << "Foram encontradas as seguintes ruas, qual delas quer?\n\n";
+            cout << "Foram encontradas as seguintes ruas na pesquisa por '" << s1 << "', qual delas quer?\n\n";
             for (int i = 0; i < roads1.size(); i++){
                 cout << i + 1 << ". " << roads1[i] << endl;
             }
@@ -54,7 +56,7 @@ void searchStreetVehicles(const Graph<NodeInformation> & graph, const string & s
     choice = -1;
     if (roads2.size() != 1){
         while (choice < 1 || choice > roads2.size()){
-            cout << "Foram encontradas as seguintes ruas, qual delas quer?\n\n";
+            cout << "Foram encontradas as seguintes ruas na pesquisa por '" << s2 << "', qual delas quer?\n\n";
             for (int i = 0; i < roads2.size(); i++){
                 cout << i + 1 << ". " << roads2[i] << endl;
             }
@@ -150,6 +152,27 @@ bool vectorNonRepeatedInsert(vector<T> & vec, T elem){
     }
     vec.push_back(elem);
     return true;
+}
+
+bool findApproximateRoads(vector<pair<NodeInformation, NodeInformation>> & roadsNodes, vector<string> & roads, const string & s, const Graph<NodeInformation> & graph){
+    vector<Vertex<NodeInformation>* > v = graph.getVertexSet();
+    for (size_t i = 0; i < v.size(); i++){
+        vector<Edge<NodeInformation>> tmp = v[i]->getAdj();
+        for (size_t a = 0; a < tmp.size(); a++) {
+            if (approximateStringMatching(tmp[a].getLabel(), s)) {
+                if (vectorNonRepeatedInsert(roads, tmp[a].getLabel())) {
+                    pair<NodeInformation, NodeInformation> road;
+                    road.first = v[i]->getInfo();
+                    road.second = tmp[a].getDest()->getInfo();
+                    roadsNodes.push_back(road);
+                }
+            }
+        }
+    }
+    if (roads.size())
+        return true;
+    cout << "Nao foram encontradas ruas com nome aproximado a '" << s << "'.\n";
+    return false;
 }
 
 void readInt(int &n){

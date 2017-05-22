@@ -15,6 +15,8 @@ int verifyRoadConnection(const NodeInformation road1[], const NodeInformation ro
 template <class T>
 bool vectorNonRepeatedInsert(vector<T> & vec, T elem);
 
+bool findApproximateRoads(vector<pair<NodeInformation, NodeInformation>> & roadsNodes, vector<string> & roads, const string & s, const Graph<NodeInformation> & graph);
+
 void readInt(int &n);
 
 #endif //CAL_URGENCIAS_ROADSEARCH_H

@@ -83,7 +83,7 @@ void randomEmergency(Graph<NodeInformation> & graph, GraphViewer *gv, vector<Veh
 	unsigned int id;
 	id = vertexes[indexVertex]->getInfo().getId();
 
-	int pos;
+	unsigned int pos;
 	int distance = INT_INFINITY;
 
     while(distance == INT_INFINITY) {
@@ -265,7 +265,7 @@ void testEmergency(Graph<NodeInformation> & graph, ofstream & algorithmResults){
 }
 
 
-void followPath(const Graph<NodeInformation> & graph, GraphViewer *gv, vector<Vehicle> &vehicle, int pos){
+void followPath(const Graph<NodeInformation> & graph, GraphViewer *gv, vector<Vehicle> &vehicle, unsigned int pos){
     vector<int> pathIDs = vehicle[pos].getWay();
 	string iconPth = iconPath(vehicle[pos].getType());
 
@@ -280,7 +280,7 @@ void followPath(const Graph<NodeInformation> & graph, GraphViewer *gv, vector<Ve
         gvMutex.lock();
 		    gv->setVertexIcon(pathIDs[i], iconPth);
         gvMutex.unlock();
-		vehicle[pos].setInfo(graph.getVertex(NodeInformation(pathIDs[i], 1,1))->getInfo());
+		vehicle[pos].setInfo(graph.getVertex(NodeInformation((unsigned int)pathIDs[i], 1, 1))->getInfo());
         gvMutex.lock();
 		    gv->rearrange();
         gvMutex.unlock();
@@ -385,7 +385,7 @@ void testGraphConectivity(const Graph<NodeInformation> & graph){
 	cout << "\nO grafo e conexo.\n";
 }
 
-void repaintVehicles(GraphViewer *gv, vector<Vehicle> &vehicles, int pos){
+void repaintVehicles(GraphViewer *gv, vector<Vehicle> &vehicles, unsigned int pos){
 	for (size_t i = 0; i < vehicles.size(); i++){
 		if (i != pos){
             gvMutex.lock();
